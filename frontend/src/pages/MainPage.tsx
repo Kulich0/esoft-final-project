@@ -1,13 +1,15 @@
 import React from 'react';
 import Header from '../components/Header/Header';
 import Body from '../components/Body/Body';
+import ErrorBoundary from '../errorboundary';
+
 
 const MainPage: React.FC = () => {
     return (
-        <div>
+        <ErrorBoundary>
           <Header/>
           <Body/>  
-        </div>
+        </ErrorBoundary>
     );
 };
 
