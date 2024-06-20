@@ -1,12 +1,9 @@
 import React from 'react';
-import MainPage from './pages/MainPage';
-import { BrowserRouter } from 'react-router-dom';
+import AppRouter from './router/AppRouter';  
 
 const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <MainPage/>
-    </BrowserRouter>
+    <AppRouter />
   );
 };
 
