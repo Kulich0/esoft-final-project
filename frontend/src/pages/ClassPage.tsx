@@ -2,7 +2,7 @@ import React from 'react';
 import CardClasses from '../components/Card/CardClasses';
 import Header from '../components/Header/Header';
 
-const ClassPage = () => {
+const ClassPage: React.FC = () => {
     return (
         <div>
             <Header/>

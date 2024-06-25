@@ -19,7 +19,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
     alignItems: 'center',
 }));
 
-const FullOverlay = styled('div')(({ theme }) => ({
+const FullOverlay = styled('div')({
     position: 'absolute',
     top: 0,
     left: 0,
@@ -29,14 +29,12 @@ const FullOverlay = styled('div')(({ theme }) => ({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-}));
+});
 
-const TextOverlay = styled('div')(({ theme }) => ({
+const TextOverlay = styled('div')({
     textAlign: 'center',
     zIndex: 1,
-}));
-
-
+});
 
 const Body: React.FC = () => {
     return (

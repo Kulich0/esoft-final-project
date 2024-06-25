@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import logoround from '../../assets/images/logoround.jpg'; 
 
 interface Props {
-  window?: () => Window;
+  getWindow?: () => Window;
 }
 
 const drawerWidth = 240;
@@ -19,7 +19,7 @@ const navItems = [
 ];
 
 export default function Header(props: Props) {
-  const { window } = props;
+  const { getWindow } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [auth, setAuth] = React.useState(true); 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null); 
@@ -54,7 +54,7 @@ export default function Header(props: Props) {
     </Box>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container = getWindow !== undefined ? () => getWindow().document.body : undefined;
 
   return (
     <Box sx={{ display: 'flex' }}>
