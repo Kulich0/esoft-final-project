@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Box, Modal, Typography } from '@mui/material';
+import { loadSchedule } from '../../reducer/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectSchedule } from '../../reducer/selectors';
 
-const schedule = [
-  { day: 'Понедельник', times: ['7:30-8:45'], classes: ['Йога в гамаках для начинающих'] },
-  { day: 'Вторник', times: ['7:00-8:20', '8:25-9:30', '14:20-15:20', '15:30-16:40'], classes: ['Йога в гамаках для начинающих и продолжающих', 'Йога в гамаках для начинающих и продолжающих', 'Группа здоровья', 'Йога в гамаках для начинающих и продолжающих'] },
-  { day: 'Среда', times: ['7:30-8:45'], classes: ['Йога в гамаках для начинающих'] },
-  { day: 'Четверг', times: ['7:00-8:20', '8:25-9:45', '14:20-15:20', '15:30-16:40'], classes: ['Хатха-йога', 'Хатха-йога', 'Группа здоровья', 'Хатха-йога'] },
-  { day: 'Пятница', times: ['7:30-8:45'], classes: ['Йога в гамаках для начинающих'] },
-  { day: 'Суббота', times: ['7:15-8:45'], classes: ['Хатха-йога'] },
-];
-
-export default function ScheduleTable() {
+const ScheduleTable: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const [modalContent, setModalContent] = React.useState({ time: '', className: '' });
+  const dispatch = useDispatch();
+  const schedule = useSelector(selectSchedule);
+
+  React.useEffect(() => {
+    dispatch(loadSchedule());
+}, [dispatch]);
 
   const handleOpen = (time, className) => {
     setModalContent({ time, className });
@@ -92,3 +92,4 @@ export default function ScheduleTable() {
     </TableContainer>
   );
 }
+export default ScheduleTable;

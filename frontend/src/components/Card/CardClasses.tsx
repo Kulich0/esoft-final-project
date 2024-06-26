@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { styled, Typography, Button, Card, CardActions, CardContent, CardMedia, Grid } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import { loadCards, CardType  } from '../../reducer/actions';
+import { loadCards } from '../../reducer/actions';
+import { selectCards } from '../../reducer/selectors';
 
 const StyledCardMedia = styled(CardMedia)({
     height: 350,
@@ -19,7 +20,7 @@ const StyledCardMedia = styled(CardMedia)({
   
   const CardClasses: React.FC = () => {
     const dispatch = useDispatch();
-    const cards: CardType[] = useSelector((state: CardType[]) => state);
+    const cards = useSelector(selectCards);
   
     React.useEffect(() => {
       dispatch(loadCards());
