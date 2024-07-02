@@ -1,38 +1,38 @@
-import { table } from "console";
 import type { Knex } from "knex";
 
 export async function up(knex: Knex): Promise<void> {
-    await knex.schema.createTable('Roles', table => {
+    await knex.schema.createTable('roles', table => {
         table.increments('id').primary();
         table.string('name', 50).notNullable();
     });
 
-    await knex.schema.createTable('Users', table => {
+    await knex.schema.createTable('users', table => {
         table.increments('id').primary();
-        table.string('username', 50).unique().notNullable();
+        table.string('name', 50).unique().notNullable();
         table.string('email', 100).unique().notNullable();
         table.string('password', 255).notNullable();
         table.string('first_name', 50);
         table.string('last_name', 50);
         table.string('phone_number', 15).unique();
-        table.integer('role_id').notNullable();
+        table.binary('profile_picture');
         table.timestamp('created_at').defaultTo(knex.fn.now());
         table.timestamp('updated_at').defaultTo(knex.fn.now());
-        table.foreign('role_id').references('id').inTable('Roles').onDelete('CASCADE').onUpdate('CASCADE');
     });
 
-    await knex.schema.createTable('Personal', table => {
+    await knex.schema.createTable('personal', table => {
         table.increments('id').primary();
         table.string('first_name', 50).notNullable();
         table.string('last_name', 50).notNullable();
         table.string('role', 50).notNullable();
         table.text('bio');
-        table.string('profile_picture', 255);
+        table.integer('role_id').notNullable();
+        table.binary('profile_picture');
         table.timestamp('created_at').defaultTo(knex.fn.now());
         table.timestamp('updated_at').defaultTo(knex.fn.now());
+        table.foreign('role_id').references('id').inTable('roles').onDelete('CASCADE').onUpdate('CASCADE');
     });
 
-    await knex.schema.createTable('Classes', table => {
+    await knex.schema.createTable('classes', table => {
         table.increments('id').primary();
         table.integer('instructor_id').notNullable();
         table.string('title', 100).notNullable();
@@ -41,28 +41,28 @@ export async function up(knex: Knex): Promise<void> {
         table.integer('max_participants');
         table.timestamp('created_at').defaultTo(knex.fn.now());
         table.timestamp('updated_at').defaultTo(knex.fn.now());
-        table.foreign('instructor_id').references('id').inTable('Personal').onDelete('CASCADE').onUpdate('CASCADE');
+        table.foreign('instructor_id').references('id').inTable('personal').onDelete('CASCADE').onUpdate('CASCADE');
     });
 
-    await knex.schema.createTable('ClassSchedules', table => {
+    await knex.schema.createTable('classSchedules', table => {
         table.increments('id').primary();
         table.integer('class_id').notNullable();
         table.timestamp('start_time').notNullable();
         table.timestamp('end_time').notNullable();
-        table.foreign('class_id').references('id').inTable('Classes').onDelete('CASCADE').onUpdate('CASCADE');
+        table.foreign('class_id').references('id').inTable('classes').onDelete('CASCADE').onUpdate('CASCADE');
     });
 
-    await knex.schema.createTable('ClassBookings', table => {
+    await knex.schema.createTable('classBookings', table => {
         table.increments('id').primary();
         table.integer('user_id').notNullable();
         table.integer('class_schedule_id').notNullable();
         table.timestamp('booking_time').defaultTo(knex.fn.now());
         table.string('status', 20).notNullable().defaultTo('pending');
-        table.foreign('user_id').references('id').inTable('Users').onDelete('CASCADE').onUpdate('CASCADE');
-        table.foreign('class_schedule_id').references('id').inTable('ClassSchedules').onDelete('CASCADE').onUpdate('CASCADE');
+        table.foreign('user_id').references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
+        table.foreign('class_schedule_id').references('id').inTable('classSchedules').onDelete('CASCADE').onUpdate('CASCADE');
     });
 
-    await knex.schema.createTable('Reviews', table => {
+    await knex.schema.createTable('reviews', table => {
         table.increments('id').primary();
         table.integer('user_id').notNullable();
         table.integer('class_id').notNullable();
@@ -70,18 +70,18 @@ export async function up(knex: Knex): Promise<void> {
         table.text('comment');
         table.timestamp('created_at').defaultTo(knex.fn.now());
         table.timestamp('updated_at').defaultTo(knex.fn.now());
-        table.foreign('user_id').references('id').inTable('Users').onDelete('CASCADE').onUpdate('CASCADE');
-        table.foreign('class_id').references('id').inTable('Classes').onDelete('CASCADE').onUpdate('CASCADE');
+        table.foreign('user_id').references('id').inTable('users').onDelete('CASCADE').onUpdate('CASCADE');
+        table.foreign('class_id').references('id').inTable('classes').onDelete('CASCADE').onUpdate('CASCADE');
     });
 }
 
 export async function down(knex: Knex): Promise<void> {
-    await knex.schema.dropTableIfExists('Reviews');
-    await knex.schema.dropTableIfExists('ClassBookings');
-    await knex.schema.dropTableIfExists('ClassSchedules');
-    await knex.schema.dropTableIfExists('Classes');
-    await knex.schema.dropTableIfExists('Personal');
-    await knex.schema.dropTableIfExists('Users');
-    await knex.schema.dropTableIfExists('Roles');
+    await knex.schema.dropTableIfExists('reviews');
+    await knex.schema.dropTableIfExists('classBookings');
+    await knex.schema.dropTableIfExists('classSchedules');
+    await knex.schema.dropTableIfExists('classes');
+    await knex.schema.dropTableIfExists('personal');
+    await knex.schema.dropTableIfExists('users');
+    await knex.schema.dropTableIfExists('roles');
 }
 
