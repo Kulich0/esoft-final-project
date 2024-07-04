@@ -1,5 +1,5 @@
 require('dotenv').config();
-import jwt, { SignOptions, Secret } from 'jsonwebtoken';
+import jwt, { Secret } from 'jsonwebtoken';
 import TokenModel from '../models/tokenModel';
 
 if (!process.env.JWT_ACCESS_SECRET || !process.env.JWT_REFRESH_SECRET) {
@@ -15,6 +15,7 @@ class TokenService {
     generateTokens(payload: object): { accessToken: string, refreshToken: string } {
         const accessToken = jwt.sign(payload, JWT_ACCESS_SECRET, { expiresIn: ACCESS_DURATION });
         const refreshToken = jwt.sign(payload, JWT_REFRESH_SECRET, { expiresIn: REFRESH_DURATION });
+        
         return {
             accessToken,
             refreshToken

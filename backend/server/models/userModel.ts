@@ -51,7 +51,7 @@ class UserModel {
                 name: userData.name,
                 email: userData.email,
                 password: userData.password
-            }, ['userId', 'name', 'email']);
+            }, ['id', 'name', 'email']);
             return user;
 
         } catch(error) {

@@ -17,18 +17,22 @@ class UserController {
                 return res.status(400).json({ errors: errors.array() });
             }
             const tokens = await this.userService.registration(req.body);
-            res.cookie('refreshToken', tokens.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
-            res.status(201).json({ message: 'Успешная регистрация', accessToken: tokens.accessToken });
+            res.cookie('refreshToken', tokens.refreshToken, { 
+                maxAge: 30 * 24 * 60 * 60 * 1000, 
+                httpOnly: true 
+            });
+            res.status(201).json(tokens);
         } catch (e) {
             next(e);
         }
     }
+    
 
     async login(req: Request, res: Response, next: NextFunction) {
         try {
             const tokens = await this.userService.login(req.body);
             res.cookie('refreshToken', tokens.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
-            res.status(200).json({ message: 'Успешный вход', accessToken: tokens.accessToken });
+            res.status(200).json(tokens);
         } catch (e) {
             next(e);
         }

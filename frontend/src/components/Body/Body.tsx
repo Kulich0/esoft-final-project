@@ -21,8 +21,6 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
 
 const FullOverlay = styled('div')({
     position: 'absolute',
-    top: 0,
-    left: 0,
     width: '100%',
     height: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
@@ -48,7 +46,10 @@ const Body: React.FC = () => {
                         <Typography variant="h5" component="h2" gutterBottom>
                             Здоровье и хорошее настроение вместе с нами
                         </Typography>
-                        <Button variant="contained" sx={{ bgcolor: '#9370DB', color: '#fff' }}>
+                        <Button variant="contained" sx={{ 
+                            bgcolor: '#9370DB', 
+                            color: '#fff', 
+                            '&:hover': {backgroundColor: '#7A5DC7', }}}>
                             Записаться
                         </Button>
                     </TextOverlay>

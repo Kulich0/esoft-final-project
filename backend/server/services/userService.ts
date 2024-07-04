@@ -34,11 +34,14 @@ class UserService {
             throw new Error('Ошибка при создании пользователя');
         }
 
-        const tokens = TokenService.generateTokens({ userId: user.id });
+        const tokens = TokenService.generateTokens({ 
+            userId: user.id, 
+            name: user.name });
         await TokenService.saveToken(user.id, tokens.refreshToken);
-
         return {
             ...tokens,
+            accessToken: tokens.accessToken,
+            refreshToken: tokens.refreshToken,
             user: new UserDto(user)
         };
     }

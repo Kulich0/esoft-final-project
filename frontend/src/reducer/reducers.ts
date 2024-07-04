@@ -6,7 +6,7 @@ import yogainhammocks from '../assets/images/yogainhammocks.jpg';
 import yogamedium from '../assets/images/yogamedium.jpg';
 
 const initialCardsState = [
-    { title: 'Хатха-йога', description: 'Че то там потом', image: hathayoga },
+    { title: 'Хатха-йога', description: 'Другой текст для карточки', image: hathayoga },
     { title: 'Йога в гамаках(для начинающих)', description: 'Другой текст для карточки', image: yogainhammocks },
     { title: 'Йога в гамаках(средний уровень)', description: 'Другой текст для карточки', image: yogamedium },
     { title: 'Йога-нидра', description: 'Третий текст для карточки', image: '/static/images/cards/contemplative-reptile.jpg' },

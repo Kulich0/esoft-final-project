@@ -21,9 +21,9 @@ export async function up(knex: Knex): Promise<void> {
 
     await knex.schema.createTable('personal', table => {
         table.increments('id').primary();
-        table.string('first_name', 50).notNullable();
-        table.string('last_name', 50).notNullable();
-        table.string('role', 50).notNullable();
+        table.string('persname', 50).unique().notNullable();
+        table.string('email', 100).unique().notNullable();
+        table.string('password', 255).notNullable();
         table.text('bio');
         table.integer('role_id').notNullable();
         table.binary('profile_picture');

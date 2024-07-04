@@ -6,6 +6,7 @@ import ClassPage from '../pages/ClassPage';
 import SchedulePage from '../pages/SchedulePage'; 
 import PricePage from '../pages/PricePage';
 import ContactsPage from '../pages/ContactsPage';
+import LoginPage from '../pages/LoginPage';
 
 const routes = [
     {path: '/', element: <MainPage/>},
@@ -14,6 +15,7 @@ const routes = [
     {path: '/schedule', element: <SchedulePage/>},
     {path: '/price', element: <PricePage/>},
     {path: '/contacts', element: <ContactsPage/>},
+    {path: '/login', element: <LoginPage/>},
 ];
 
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { AppBar, Box, Button, CssBaseline, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Toolbar, Menu, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle'; 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logoround from '../../assets/images/logoround.jpg'; 
 
 interface Props {
@@ -15,7 +15,7 @@ const navItems = [
   { name: 'Занятия', link: '/classes' },
   { name: 'Расписание', link: '/schedule' },
   { name: 'Прайс', link: '/price' },
-  { name: 'Контакты', link: '/contacts' }
+  { name: 'Контакты', link: '/contacts' },
 ];
 
 export default function Header(props: Props) {
@@ -23,6 +23,7 @@ export default function Header(props: Props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [auth, setAuth] = React.useState(true); 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null); 
+  const navigate = useNavigate();
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -34,6 +35,10 @@ export default function Header(props: Props) {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLoginRedirect = () => {
+    navigate('/login');
   };
 
   const drawer = (
@@ -50,6 +55,11 @@ export default function Header(props: Props) {
             </ListItemButton>
           </ListItem>
         ))}
+        <ListItem disablePadding>
+          <ListItemButton sx={{ textAlign: 'center' }} onClick={handleLoginRedirect}>
+            <ListItemText primary="Войти" />
+          </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
@@ -86,7 +96,9 @@ export default function Header(props: Props) {
               </Button>
             ))}
           </Box>
-          <Button variant="outlined" sx = {{color: '#fff', border: '#fff', '&hover': {border: '#fff'}}}>Войти</Button>
+          <Button variant="outlined" sx={{ color: '#fff', border: '#fff', '&:hover': { border: '#fff' } }} onClick={handleLoginRedirect}>
+            Войти
+          </Button>
           {auth && (
             <Box sx={{ ml: 'auto' }}>
               <IconButton
@@ -115,7 +127,6 @@ export default function Header(props: Props) {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Профиль</MenuItem>
-                <MenuItem onClick={handleClose}>Мой аккаунт</MenuItem>
               </Menu>
             </Box>
           )}
@@ -141,3 +152,4 @@ export default function Header(props: Props) {
     </Box>
   );
 }
+
