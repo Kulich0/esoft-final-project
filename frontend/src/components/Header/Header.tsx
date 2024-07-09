@@ -21,7 +21,7 @@ const navItems = [
 export default function Header(props: Props) {
   const { getWindow } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [auth, setAuth] = React.useState(true); 
+  const [auth, /* setAuth */] = React.useState(true); 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null); 
   const navigate = useNavigate();
 

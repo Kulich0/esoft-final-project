@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Paper, styled, Typography, Button, Box} from '@mui/material';
 import mainpagephoto from '../../assets/images/mainpagephoto.jpg';
-
+import { useNavigate } from 'react-router-dom';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     position: 'relative',
@@ -35,6 +35,12 @@ const TextOverlay = styled('div')({
 });
 
 const Body: React.FC = () => {
+    const navigate = useNavigate(); 
+
+    const handleLoginRedirect = () => {
+        navigate('/login');
+    };
+
     return (
         <>
             <StyledPaper>
@@ -46,10 +52,14 @@ const Body: React.FC = () => {
                         <Typography variant="h5" component="h2" gutterBottom>
                             Здоровье и хорошее настроение вместе с нами
                         </Typography>
-                        <Button variant="contained" sx={{ 
-                            bgcolor: '#9370DB', 
-                            color: '#fff', 
-                            '&:hover': {backgroundColor: '#7A5DC7', }}}>
+                        <Button 
+                            variant="contained" 
+                            onClick={handleLoginRedirect} 
+                            sx={{ 
+                                bgcolor: '#9370DB', 
+                                color: '#fff', 
+                                '&:hover': {backgroundColor: '#7A5DC7', }}}
+                            >
                             Записаться
                         </Button>
                     </TextOverlay>

@@ -3,7 +3,7 @@ import TableSchedule from '../components/TableSchedule/TableSchedule';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 
-const SchedulePage = () => {
+const SchedulePage: React.FC = () => {
     return (
         <div>
             <Header/>

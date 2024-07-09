@@ -59,9 +59,14 @@ createAdmin(); */
 const port = 5000;
 const app = express();
 
+const corsOptions = {
+    origin: 'http://localhost:5173', 
+    credentials: true, 
+};
+
+app.use(cors(corsOptions)); 
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(cors());
 
 const userService = new UserService(UserModel);
 const userController = new UserController(userService); 
@@ -89,10 +94,6 @@ app.use('/api', classBookingsRouter);
 app.use('/api', classSheduleRouter);
 app.use('/api', personalRouter);
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
-});
 
 app.listen(port, () => {
     console.log(`SERVER STARTED ON PORT http://localhost:${port}`);

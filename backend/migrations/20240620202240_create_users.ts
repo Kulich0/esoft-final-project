@@ -47,7 +47,7 @@ export async function up(knex: Knex): Promise<void> {
     await knex.schema.createTable('classSchedules', table => {
         table.increments('id').primary();
         table.integer('class_id').notNullable();
-        table.timestamp('start_time').notNullable();
+        table.time('start_time').notNullable();
         table.timestamp('end_time').notNullable();
         table.foreign('class_id').references('id').inTable('classes').onDelete('CASCADE').onUpdate('CASCADE');
     });

@@ -5,7 +5,7 @@ const FullOverlay = styled('div')({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  marginBottom: '20px',
+  marginBottom: '100px',
   width: '100%',
 });
 
@@ -16,7 +16,8 @@ const StyledBox = styled(Box)({
   flexDirection: 'column',
   alignItems: 'center',
   padding: '120px 0',
-  marginTop: '0px',
+  marginTop: '30px',
+
 });
 
 const UnderlinedTypography = styled(Typography)({
