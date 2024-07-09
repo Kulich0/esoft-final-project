@@ -1,16 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Button, TextField, Card, CardContent, Typography, Link, CircularProgress } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../reducer/store';
-import { login, registration, /* logout */ } from '../../reducer/slices/authSlice';
+import { login, registration } from '../../reducer/slices/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 const LoginCard: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [isRegistering, setIsRegistering] = useState(false);
-  const dispatch = useDispatch<AppDispatch>(); 
-  const { loading, error } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch<AppDispatch>();
+  const { user, loading, error } = useSelector((state: RootState) => state.auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate(`/users/${user.id}`);
+    }
+  }, [user, navigate]);
 
   const handleLogin = () => {
     if (isRegistering) {
@@ -19,15 +27,10 @@ const LoginCard: React.FC = () => {
       dispatch(login({ email, password }));
     }
   };
-  
 
   const handleRegisterClick = () => {
     setIsRegistering(!isRegistering);
   };
-
-/*   const handleLogout = () => {
-    dispatch(logout());
-  }; */
 
   return (
     <Card sx={{ 
@@ -119,4 +122,3 @@ const LoginCard: React.FC = () => {
 };
 
 export default LoginCard;
-

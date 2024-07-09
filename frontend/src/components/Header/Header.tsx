@@ -11,11 +11,10 @@ interface Props {
 
 const drawerWidth = 240;
 const navItems = [
-  { name: 'О центре', link: '/about' },
+  
   { name: 'Занятия', link: '/classes' },
   { name: 'Расписание', link: '/schedule' },
   { name: 'Прайс', link: '/price' },
-  { name: 'Контакты', link: '/contacts' },
 ];
 
 export default function Header(props: Props) {
@@ -127,6 +126,7 @@ export default function Header(props: Props) {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Профиль</MenuItem>
+                <MenuItem onClick={handleClose}>Выход</MenuItem>
               </Menu>
             </Box>
           )}
