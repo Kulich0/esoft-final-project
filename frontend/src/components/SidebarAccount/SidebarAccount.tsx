@@ -10,11 +10,14 @@ import Divider from '@mui/material/Divider';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import SelfImprovementRoundedIcon from '@mui/icons-material/SelfImprovementRounded';
 import DateRangeRoundedIcon from '@mui/icons-material/DateRangeRounded';
+import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../reducer/store';
 import { fetchUserById } from '../../reducer/slices/userSlice';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { logout } from '../../reducer/slices/authSlice';
 
 const closedDrawerWidth = 50;
 const openDrawerWidth = 240;
@@ -34,10 +37,16 @@ const SidebarAccount = () => {
     setIsOpen(open);
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+    window.location.href = '/';
+  };
+
   const DrawerList = (
-    <Box sx={{ width: openDrawerWidth }} role="presentation" onClick={toggleDrawer(false)}>
+    <Box sx={{ width: openDrawerWidth, height: '100%', position: 'relative' }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
         {[
+          { text: 'Главная', icon: <HomeRoundedIcon />, path: '/' },
           { text: 'Профиль', icon: <AccountCircle />, path: `/users/${userId}` },
           { text: 'Мои занятия', icon: <SelfImprovementRoundedIcon />, path: `/class-bookings/users/${userId}` }
         ].map((item) => (
@@ -62,6 +71,16 @@ const SidebarAccount = () => {
           </ListItem>
         ))}
       </List>
+      <Box sx={{ position: 'absolute', bottom: 0, width: '100%' }}>
+        <ListItem disablePadding>
+          <ListItemButton onClick={handleLogout}> 
+            <ListItemIcon>
+              <ExitToAppIcon />
+            </ListItemIcon>
+            <ListItemText primary="Выход" />
+          </ListItemButton>
+        </ListItem>
+      </Box>
     </Box>
   );
 

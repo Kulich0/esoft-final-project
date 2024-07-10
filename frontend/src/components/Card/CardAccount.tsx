@@ -14,6 +14,9 @@ export default function CardAccount() {
   const dispatch: AppDispatch = useDispatch();
   const { user, loading, error } = useSelector((state: RootState) => state.user);
 
+  const [successMessage, setSuccessMessage] = React.useState('');
+
+
   const [editing, setEditing] = React.useState(false);
   const [tempUser, setTempUser] = React.useState({
     id: '',
@@ -49,11 +52,16 @@ export default function CardAccount() {
     dispatch(updateUser({ id: tempUser.id, updatedUser: tempUser }))
       .then(() => {
         setEditing(false);
+        setSuccessMessage('Изменения успешно сохранены');
+        setTimeout(() => {
+          setSuccessMessage('');
+        }, 3000); 
       })
       .catch(err => {
         console.error(err);
       });
   };
+  
 
   const handleEdit = () => {
     setEditing(true);
@@ -63,7 +71,7 @@ export default function CardAccount() {
   if (error) return <div>Error: {typeof error === 'object' ? JSON.stringify(error) : error}</div>;
 
   return (
-    <Card sx={{ maxWidth: 745, marginLeft: '320px' }}>
+    <Card sx={{ maxWidth: 745, marginLeft: '70px' }}>
       <CardContent>
         <Box display="flex" alignItems="center" mb={2}>
           <Avatar sx={{ mr: 2 }} />
@@ -132,7 +140,12 @@ export default function CardAccount() {
             </Button>
           </>
         )}
+        {successMessage && (
+          <Typography variant="body2" color="success.main" sx={{ mt: 2 }}>
+            {successMessage}
+          </Typography>
+        )}
       </CardContent>
     </Card>
-  );
+  );  
 }

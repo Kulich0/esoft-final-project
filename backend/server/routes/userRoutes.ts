@@ -13,7 +13,7 @@ const userRoutes = (userController: UserController) => {
     ], (req: Request, res: Response, next: NextFunction) => userController.registration(req, res, next)); 
 
     router.post('/login', (req: Request, res: Response, next: NextFunction) => userController.login(req, res, next));
-    router.post('/logout', authenticateJWT, (req: Request, res: Response, next: NextFunction) => userController.logout(req, res, next));
+    router.post('/logout', (req: Request, res: Response, next: NextFunction) => userController.logout(req, res, next));
     router.get('/refresh', (req: Request, res: Response, next: NextFunction) => userController.refresh(req, res, next));
     router.get('/users', authenticateJWT, (req: Request, res: Response, next: NextFunction) => userController.getAllUsers(req, res, next));
     router.get('/users/:id', (req: Request, res: Response, next: NextFunction) => userController.getUserById(req, res, next));

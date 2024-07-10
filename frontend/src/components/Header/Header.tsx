@@ -4,6 +4,9 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle'; 
 import { Link, useNavigate } from 'react-router-dom';
 import logoround from '../../assets/images/logoround.jpg'; 
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState, AppDispatch } from '../../reducer/store';
+import { logout } from '../../reducer/slices/authSlice';
 
 interface Props {
   getWindow?: () => Window;
@@ -11,7 +14,6 @@ interface Props {
 
 const drawerWidth = 240;
 const navItems = [
-  
   { name: 'Занятия', link: '/classes' },
   { name: 'Расписание', link: '/schedule' },
   { name: 'Прайс', link: '/price' },
@@ -20,9 +22,12 @@ const navItems = [
 export default function Header(props: Props) {
   const { getWindow } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [auth, /* setAuth */] = React.useState(true); 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null); 
   const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
+
+  const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+  const user = useSelector((state: RootState) => state.auth.user);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -40,6 +45,11 @@ export default function Header(props: Props) {
     navigate('/login');
   };
 
+  const handleLogout = () => {
+    dispatch(logout());
+    handleClose();
+  };
+
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Box sx={{ my: 2 }}>
@@ -54,11 +64,13 @@ export default function Header(props: Props) {
             </ListItemButton>
           </ListItem>
         ))}
-        <ListItem disablePadding>
-          <ListItemButton sx={{ textAlign: 'center' }} onClick={handleLoginRedirect}>
-            <ListItemText primary="Войти" />
-          </ListItemButton>
-        </ListItem>
+        {!isAuthenticated && (
+          <ListItem disablePadding>
+            <ListItemButton sx={{ textAlign: 'center' }} onClick={handleLoginRedirect}>
+              <ListItemText primary="Войти" />
+            </ListItemButton>
+          </ListItem>
+        )}
       </List>
     </Box>
   );
@@ -95,10 +107,15 @@ export default function Header(props: Props) {
               </Button>
             ))}
           </Box>
-          <Button variant="outlined" sx={{ color: '#fff', border: '#fff', '&:hover': { border: '#fff' } }} onClick={handleLoginRedirect}>
-            Войти
-          </Button>
-          {auth && (
+          {!isAuthenticated ? (
+            <Button
+              variant="outlined"
+              sx={{ color: '#fff', border: '1px solid #fff', '&:hover': { border: '1px solid #fff' } }}
+              onClick={handleLoginRedirect}
+            >
+              Войти
+            </Button>
+          ) : (
             <Box sx={{ ml: 'auto' }}>
               <IconButton
                 size="large"
@@ -125,8 +142,8 @@ export default function Header(props: Props) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Профиль</MenuItem>
-                <MenuItem onClick={handleClose}>Выход</MenuItem>
+                <MenuItem component={Link} to={`/users/${user?.id}`}>Профиль</MenuItem>
+                <MenuItem onClick={handleLogout}>Выход</MenuItem>
               </Menu>
             </Box>
           )}
@@ -152,4 +169,3 @@ export default function Header(props: Props) {
     </Box>
   );
 }
-
