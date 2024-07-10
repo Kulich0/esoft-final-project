@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Paper, styled, Typography, Button, Box} from '@mui/material';
+import { Paper, styled, Typography, Button} from '@mui/material';
 import mainpagephoto from '../../assets/images/mainpagephoto.jpg';
 import { useNavigate } from 'react-router-dom';
+import AboutYogacenter from '../AboutYogacenter/AboutYogacenter';
+import Contacts from '../Contacts/Contacts';
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
     position: 'relative',
@@ -65,14 +67,8 @@ const Body: React.FC = () => {
                     </TextOverlay>
                 </FullOverlay>
             </StyledPaper>
-            <Box sx={{ padding: 2 }}>
-                <Typography variant="h5">
-                    Добро пожаловать в наш центр йоги! Мы предлагаем разнообразные программы и тренировки, 
-                    которые помогут вам достичь гармонии тела и духа. Присоединяйтесь к нам и почувствуйте 
-                    улучшение уже после первого занятия.
-                </Typography>
-            </Box>
-            
+            <AboutYogacenter/>
+            <Contacts/>
         </>
     );
 };

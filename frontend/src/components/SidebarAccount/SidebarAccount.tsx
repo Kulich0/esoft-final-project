@@ -1,6 +1,6 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -14,13 +14,15 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../reducer/store';
-import { fetchUserById } from '../../reducer/slices/userSlice'; 
+import { fetchUserById } from '../../reducer/slices/userSlice';
 
-const drawerWidth = 250;
+const closedDrawerWidth = 50;
+const openDrawerWidth = 240;
 
 const SidebarAccount = () => {
   const dispatch: AppDispatch = useDispatch();
   const userId = useSelector((state: RootState) => state.auth.user?.id);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   React.useEffect(() => {
     if (userId) {
@@ -28,12 +30,16 @@ const SidebarAccount = () => {
     }
   }, [dispatch, userId]);
 
+  const toggleDrawer = (open: boolean) => () => {
+    setIsOpen(open);
+  };
+
   const DrawerList = (
-    <Box sx={{ width: drawerWidth }} role="presentation">
+    <Box sx={{ width: openDrawerWidth }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
         {[
-          { text: 'Профиль', icon: <AccountCircle/>, path: `/users/${userId}` },
-          { text: 'Мои занятия', icon: <SelfImprovementRoundedIcon/>, path: 'my-classes' }
+          { text: 'Профиль', icon: <AccountCircle />, path: `/users/${userId}` },
+          { text: 'Мои занятия', icon: <SelfImprovementRoundedIcon />, path: `/class-bookings/users/${userId}` }
         ].map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton component={Link} to={item.path}>
@@ -62,24 +68,31 @@ const SidebarAccount = () => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <Drawer
-        variant="persistent"
+      <SwipeableDrawer
+        variant="permanent"
         sx={{
-          width: drawerWidth,
+          width: isOpen ? openDrawerWidth : closedDrawerWidth,
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+          '& .MuiDrawer-paper': {
+            width: isOpen ? openDrawerWidth : closedDrawerWidth,
+            boxSizing: 'border-box',
+            overflowX: 'hidden',
+            transition: 'width 0.3s',
+          },
         }}
-        open
+        onMouseEnter={toggleDrawer(true)}
+        onMouseLeave={toggleDrawer(false)}
+        open={isOpen}
       >
         {DrawerList}
-      </Drawer>
+      </SwipeableDrawer>
       <Box
         component="main"
-        sx={{ p: 3 }}
+        sx={{ flexGrow: 1, p: 3 }}
       >
       </Box>
     </Box>
   );
-}
+};
 
 export default SidebarAccount;

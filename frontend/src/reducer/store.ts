@@ -3,13 +3,15 @@ import authReducer from './slices/authSlice';
 import classesReducer from './slices/classesSlice';
 import scheduleSlice from './slices/scheduleSlice';
 import userSlice from './slices/userSlice';
+import bookingSlice from './slices/bookingSlice';
 
 const store = configureStore({
     reducer: {
         auth: authReducer,
         classes: classesReducer,
         schedules: scheduleSlice,
-        user: userSlice
+        user: userSlice,
+        bookings: bookingSlice
     }
 })
 

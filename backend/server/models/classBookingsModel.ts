@@ -15,12 +15,12 @@ class ClassBookingsModel {
         }
     }
 
-    async getById(classBookingsId: number) {
+    async getById(userId: number) {
         try {
-            const classBooking = await pool('classBookings').where({ id: classBookingsId }).first();
-            return classBooking;
+            const classBookings = await pool('classBookings').where({ user_id: userId });
+            return classBookings;
         } catch (error) {
-            console.error(`Не удалось получить запись на занятие с ID ${classBookingsId}`, error);
+            console.error(`Не удалось получить записи на занятия для пользователя с ID ${userId}`, error);
             throw error;
         }
     }

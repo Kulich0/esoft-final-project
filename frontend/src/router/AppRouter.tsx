@@ -9,6 +9,7 @@ import ContactsPage from '../pages/ContactsPage';
 import LoginPage from '../pages/LoginPage';
 import AccountPage from '../pages/AccountPage';
 import ProfileSchedulePage from '../pages/ProfileSchedulePage'
+import ClassesAccountPage from '../pages/ClassesAccountPage'
 
 const routes = [
     {path: '/', element: <MainPage/>},
@@ -20,6 +21,7 @@ const routes = [
     {path: '/login', element: <LoginPage/>},
     {path: '/users/:id', element: <AccountPage/>},
     {path: '/profile-schedule/users/:id', element: <ProfileSchedulePage/>},
+    { path: '/class-bookings/users/:userId', element: <ClassesAccountPage /> }
 
 ];
 

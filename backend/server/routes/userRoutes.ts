@@ -17,7 +17,7 @@ const userRoutes = (userController: UserController) => {
     router.get('/refresh', (req: Request, res: Response, next: NextFunction) => userController.refresh(req, res, next));
     router.get('/users', authenticateJWT, (req: Request, res: Response, next: NextFunction) => userController.getAllUsers(req, res, next));
     router.get('/users/:id', (req: Request, res: Response, next: NextFunction) => userController.getUserById(req, res, next));
-    router.put('/users/:id', authenticateJWT, (req: Request, res: Response, next: NextFunction) => userController.updateUser(req, res, next));
+    router.put('/users/:id', (req: Request, res: Response, next: NextFunction) => userController.updateUser(req, res, next));
 
     return router;
 };

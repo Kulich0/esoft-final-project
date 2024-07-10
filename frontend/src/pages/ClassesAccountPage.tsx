@@ -1,14 +1,13 @@
 import React from 'react';
-import ClassesAccount from '../components/ClassesAccount/ClassesAccount';
+import MyBookings from '../components/MyBookings/MyBookings';
 import SidebarAccount from '../components/SidebarAccount/SidebarAccount';
-
-const PricePage: React.FC = () => {
+const ClassesAccountPage: React.FC = () => {
     return (
         <div>
-            <ClassesAccount/>
+            <MyBookings/>
             <SidebarAccount/>
         </div>
     );
 };
 
-export default PricePage;
+export default ClassesAccountPage;

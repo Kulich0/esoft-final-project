@@ -7,8 +7,8 @@ class ClassBookingsService {
         return this.classBookingsModel.getAll(offset, limit);
     }
 
-    async getClassBookingsById(classBookingsId: number) {
-        return this.classBookingsModel.getById(classBookingsId);
+    async getClassBookingsById(userId: number) {
+        return this.classBookingsModel.getById(userId);
     }
 
     async updateClassBooking(id: number, classBookingData: { user_id?: number; class_schedule_id?: number; booking_time?: Date; status?: string }) {
