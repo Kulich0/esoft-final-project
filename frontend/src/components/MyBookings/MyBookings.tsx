@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../reducer/store';
-import { fetchUserBookings } from '../../reducer/slices/bookingSlice';
+import { fetchUserBookings, deleteBooking } from '../../reducer/slices/bookingSlice';
 import { Box, Typography, Grid, Paper, Button } from '@mui/material';
 
 const MyBookings = () => {
@@ -16,6 +16,17 @@ const MyBookings = () => {
       dispatch(fetchUserBookings(userId.toString()));
     }
   }, [dispatch, userId]);
+
+  const handleDeleteBooking = (bookingId: string) => {
+    dispatch(deleteBooking(bookingId))
+      .then(() => {
+        alert(`Запись с ID ${bookingId} успешно отменена`);
+      })
+      .catch((error) => {
+        console.error('Ошибка отмены записи:', error);
+        alert('Ошибка отмены записи');
+      });
+  };
 
   if (loading) {
     return <Typography>Загрузка данных...</Typography>;
@@ -40,11 +51,15 @@ const MyBookings = () => {
                 <Typography variant="body2"><strong>ID расписания занятия:</strong> {booking.class_schedule_id}</Typography>
                 <Typography variant="body2"><strong>Время бронирования:</strong> {booking.booking_time}</Typography>
                 <Typography variant="body2"><strong>Статус:</strong> {booking.status}</Typography>
-                <Button variant="contained" sx={{ 
-                  bgcolor: '#9370DB', 
-                  color: '#fff', 
-                  '&:hover': { backgroundColor: '#7A5DC7' } 
-                }}>
+                <Button
+                  variant="contained"
+                  sx={{
+                    bgcolor: '#9370DB',
+                    color: '#fff',
+                    '&:hover': { backgroundColor: '#7A5DC7' }
+                  }}
+                  onClick={() => handleDeleteBooking(booking.id.toString())}
+                >
                   Отменить запись
                 </Button>
               </Paper>

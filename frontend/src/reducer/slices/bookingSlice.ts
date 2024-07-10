@@ -45,10 +45,26 @@ export const createBooking = createAsyncThunk<IBookings, IBookings, AsyncThunkCo
   }
 );
 
+export const deleteBooking = createAsyncThunk<void, string, AsyncThunkConfig>(
+  'bookings/deleteBooking',
+  async (bookingId, thunkAPI) => {
+    try {
+      await ClassBookingsService.deleteBooking(bookingId);
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      return thunkAPI.rejectWithValue(axiosError.response?.data as string);
+    }
+  }
+);
+
 const bookingsSlice = createSlice({
   name: 'bookings',
   initialState,
-  reducers: {},
+  reducers: {
+    removeBookingOptimistic: (state, action) => {
+      state.bookings = state.bookings.filter((booking) => booking.id !== action.payload);
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserBookings.pending, (state) => {
@@ -74,8 +90,22 @@ const bookingsSlice = createSlice({
       .addCase(createBooking.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload as string;
+      })
+      .addCase(deleteBooking.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteBooking.fulfilled, (state) => {
+        state.loading = false;
+      })
+      .addCase(deleteBooking.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
       });
   },
 });
 
+export const { removeBookingOptimistic } = bookingsSlice.actions;
+
 export default bookingsSlice.reducer;
+

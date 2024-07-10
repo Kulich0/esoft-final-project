@@ -59,31 +59,30 @@ const CardClasses: React.FC = () => {
     setSelectedDescription('');
   };
 
-  // Преобразование Buffer в Uint8Array
-  const bufferToUint8Array = (buffer: { type: string; data: number[] } | null): Uint8Array => {
+/*   const bufferToUint8Array = (buffer: { type: string; data: number[] } | null): Uint8Array => {
     if (buffer && buffer.data) {
         return new Uint8Array(buffer.data);
     } else {
         console.error('Buffer is null or missing data');
         return new Uint8Array(); // Возвращаем пустой массив, если данных нет
     }
-};
+}; */
 
-const getImageUrl = (buffer: { type: string; data: number[] } | null): string => {
+/* const getImageUrl = (buffer: { type: string; data: number[] } | null): string => {
     const uint8Array = bufferToUint8Array(buffer);
     if (uint8Array.length === 0) {
         console.error('Uint8Array is empty');
-        return ''; // Возвращаем пустую строку, если данные пустые
+        return ''; 
     }
     try {
-        const blob = new Blob([uint8Array], { type: 'image/jpeg' }); // MIME-тип изображения
+        const blob = new Blob([uint8Array], { type: 'image/jpeg' }); 
         const url = URL.createObjectURL(blob);
         return url;
     } catch (error) {
         console.error('Error creating URL for image:', error);
         return '';
     }
-};
+}; */
 
   return (
     <>
@@ -91,11 +90,11 @@ const getImageUrl = (buffer: { type: string; data: number[] } | null): string =>
         {classes.map((card, index) => (
           <Grid item key={index} xs={12} sm={6} md={4} sx={{ padding: '5px' }}>
             <StyledCard>
-              <StyledCardMedia
-                image={getImageUrl(card.profile_picture)} // Используйте `image` для `CardMedia`
+              {/* <StyledCardMedia
+                image={getImageUrl(card.profile_picture)} 
                 title={card.title}
-                component="img" // Убедитесь, что `CardMedia` принимает `component="img"`
-              />
+                component="img" 
+              /> */}
               <StyledCardContent>
                 <Typography gutterBottom variant="h5" component="div">
                   {card.title}

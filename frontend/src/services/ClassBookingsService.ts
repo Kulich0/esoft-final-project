@@ -13,9 +13,7 @@ export default class ClassBookingsService {
     static createBooking(newBooking: IBookings): Promise<AxiosResponse<IBookings>> {
         return $api.post<IBookings>('class-bookings', newBooking);
     }
-    static updateBooking(id: string, updatedBooking: IBookings): Promise<AxiosResponse<IBookings>> {
-        return $api.put<IBookings>(`class-bookings/${id}`, updatedBooking);
-    }
+    
     static deleteBooking(id: string): Promise<AxiosResponse<void>> {
         return $api.delete<void>(`class-bookings/${id}`);
     }
