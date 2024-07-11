@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React  from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../reducer/store';
 import { fetchUserBookings, deleteBooking } from '../../reducer/slices/bookingSlice';
@@ -11,7 +11,7 @@ const MyBookings = () => {
   const loading = useSelector((state: RootState) => state.bookings.loading);
   const error = useSelector((state: RootState) => state.bookings.error);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (userId) {
       dispatch(fetchUserBookings(userId.toString()));
     }

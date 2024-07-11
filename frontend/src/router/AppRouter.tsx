@@ -8,6 +8,8 @@ import LoginPage from '../pages/LoginPage';
 import AccountPage from '../pages/AccountPage';
 import ProfileSchedulePage from '../pages/ProfileSchedulePage'
 import ClassesAccountPage from '../pages/ClassesAccountPage'
+import AbonsPage from '../pages/AbonsPage'
+import MyAbonsPage from '../pages/MyAbonsPage';
 
 const routes = [
     {path: '/', element: <MainPage/>},
@@ -17,7 +19,10 @@ const routes = [
     {path: '/login', element: <LoginPage/>},
     {path: '/users/:id', element: <AccountPage/>},
     {path: '/profile-schedule/users/:id', element: <ProfileSchedulePage/>},
-    { path: '/class-bookings/users/:userId', element: <ClassesAccountPage /> }
+    {path: '/class-bookings/users/:userId', element: <ClassesAccountPage /> },
+    {path: '/users/:id', element: <AccountPage/>},
+    {path: '/abonements/:id', element: <AbonsPage/>},
+    {path: '/usabonements/users/:userId', element: <MyAbonsPage/> },
 
 ];
 

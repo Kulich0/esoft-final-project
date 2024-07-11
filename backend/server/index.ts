@@ -2,8 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import bcrypt from 'bcrypt';
-import db  from './db';
+
 
 import UserController from './controllers/userController';
 import UserService from './services/userService';
@@ -31,30 +30,16 @@ import PersonalModel from './models/personalModel';
 import RolesModel from './models/rolesModel';
 import personalRoutes from './routes/personalRoutes';
 
-/* const createAdmin = async () => {
-    const saltRounds = 10;
-    const password = '*******';
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    try {
-        await db('personal').insert({
-            persname: '*******',
-            email: 'stepan.09myromec@gmail.com',
-            password: hashedPassword,
-            bio: 'System Administrator',
-            role_id: 1,
-            created_at: db.fn.now(),
-            updated_at: db.fn.now()
-        });
-        console.log('Администратор успешно добавлен');
-    } catch (error) {
-        console.error('Ошибка при добавлении администратора:', error);
-    } finally {
-        await db.destroy(); 
-    }
-};
+import AbonementController from './controllers/abonementController';
+import AbonementService from './services/abonementService';
+import AbonementModel from './models/abonementModel';
+import abonementRoutes from './routes/abonementRoutes';
 
-createAdmin(); */
+import UserAbonementController from './controllers/userAbonementController';
+import UserAbonementService from './services/userAbonementService';
+import UserAbonModel from './models/userAbonModel';
+import userAbonementRoutes from './routes/userAbonementRoutes';
 
 const port = 5000;
 const app = express();
@@ -84,15 +69,25 @@ const classScheduleService = new ClassScheduleService(ClassSchedulesModel);
 const classScheduleController = new ClassScheduleController(classScheduleService);
 const classSheduleRouter = classScheduleRoutes(classScheduleController);
 
+const abonementService = new AbonementService(AbonementModel);
+const abonementController = new AbonementController(abonementService);
+const abonementRouter = abonementRoutes(abonementController);
+
 const personalService = new PersonalService(PersonalModel, RolesModel);
 const personalController = new PersonalController(personalService);
 const personalRouter = personalRoutes(personalController);
+
+const userAbonementService = new UserAbonementService(UserAbonModel);
+const userAbonementController = new UserAbonementController(userAbonementService);
+const userAbonementRouter = userAbonementRoutes(userAbonementController);
 
 app.use('/api', userRouter);
 app.use('/api', classesRouter);
 app.use('/api', classBookingsRouter);
 app.use('/api', classSheduleRouter);
 app.use('/api', personalRouter);
+app.use('/api', abonementRouter);
+app.use('/api', userAbonementRouter);
 
 
 app.listen(port, () => {

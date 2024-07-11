@@ -41,14 +41,27 @@ const ClassesAccount = () => {
         console.error('Ошибка записи на занятие:', error);
         alert('Ошибка записи на занятие');
       });
-    } else {
-      alert('Пожалуйста, войдите в систему, чтобы записаться на занятие.');
     }
   };
 
   return (
     <Box sx={{ padding: 2, marginLeft: '50px' }}>
       <Typography variant="h4" gutterBottom>Расписание занятий</Typography>
+      <Box sx={{ marginTop: 2, marginBottom: 5 }}>
+        <FormControl fullWidth>
+          <InputLabel>Выберите занятие</InputLabel>
+          <Select value={selectedClass} onChange={handleClassChange}>
+            {schedules.map((schedule) => (
+              <MenuItem key={schedule.id} value={schedule.id}>
+                {schedule.classes} ({schedule.start_time} - {schedule.end_time} на {schedule.day})
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} onClick={() => handleSignUp(selectedClass)} disabled={!selectedClass}>
+          Записаться на выбранное занятие
+        </Button>
+      </Box>
       {Object.keys(groupedSchedules).map((day) => (
         <Box key={day} sx={{ marginBottom: 4 }}>
           <Typography variant="h6">{day}</Typography>
@@ -70,21 +83,6 @@ const ClassesAccount = () => {
           </Grid>
         </Box>
       ))}
-      <Box sx={{ marginTop: 4 }}>
-        <FormControl fullWidth>
-          <InputLabel>Выберите занятие</InputLabel>
-          <Select value={selectedClass} onChange={handleClassChange}>
-            {schedules.map((schedule) => (
-              <MenuItem key={schedule.id} value={schedule.id}>
-                {schedule.classes} ({schedule.start_time} - {schedule.end_time} на {schedule.day})
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <Button variant="contained" color="secondary" sx={{ marginTop: 2 }} onClick={() => handleSignUp(selectedClass)} disabled={!selectedClass}>
-          Записаться на выбранное занятие
-        </Button>
-      </Box>
     </Box>
   );
 };

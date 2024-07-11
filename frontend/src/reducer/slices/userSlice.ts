@@ -21,9 +21,9 @@ interface AsyncThunkConfig {
 
 export const fetchUserById = createAsyncThunk<IUser, string, AsyncThunkConfig>(
   'user/fetchUserById',
-  async (id, thunkAPI) => {
+  async (userId, thunkAPI) => {
     try {
-      const response = await UserService.fetchUserById(id);
+      const response = await UserService.fetchUserById(userId);
       return response.data;
     } catch (error) {
       const axiosError = error as AxiosError;

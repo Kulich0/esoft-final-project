@@ -18,6 +18,8 @@ import { RootState, AppDispatch } from '../../reducer/store';
 import { fetchUserById } from '../../reducer/slices/userSlice';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { logout } from '../../reducer/slices/authSlice';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+
 
 const closedDrawerWidth = 50;
 const openDrawerWidth = 240;
@@ -48,7 +50,8 @@ const SidebarAccount = () => {
         {[
           { text: 'Главная', icon: <HomeRoundedIcon />, path: '/' },
           { text: 'Профиль', icon: <AccountCircle />, path: `/users/${userId}` },
-          { text: 'Мои занятия', icon: <SelfImprovementRoundedIcon />, path: `/class-bookings/users/${userId}` }
+          { text: 'Мои занятия', icon: <SelfImprovementRoundedIcon />, path: `/class-bookings/users/${userId}` },
+          { text: 'Мои абонименты', icon: <SelfImprovementRoundedIcon />, path: `/usabonements/users/${userId}` },
         ].map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton component={Link} to={item.path}>
@@ -61,7 +64,8 @@ const SidebarAccount = () => {
       <Divider />
       <List>
         {[
-          { text: 'Расписание', icon: <DateRangeRoundedIcon />, path: `/profile-schedule/users/${userId}` }
+          { text: 'Расписание', icon: <DateRangeRoundedIcon />, path: `/profile-schedule/users/${userId}` },
+          { text: 'Абонементы', icon: < FitnessCenterIcon />, path: `/abonements/${userId}` }
         ].map((item) => (
           <ListItem key={item.text} disablePadding>
             <ListItemButton component={Link} to={item.path}>

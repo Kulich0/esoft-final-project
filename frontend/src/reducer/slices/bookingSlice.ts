@@ -19,6 +19,8 @@ interface AsyncThunkConfig {
   rejectValue: string;
 }
 
+
+
 export const fetchUserBookings = createAsyncThunk<IBookings[], string, AsyncThunkConfig>(
   'bookings/fetchUserBookings',
   async (bookingId, thunkAPI) => {
@@ -79,6 +81,8 @@ const bookingsSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
+
+
       .addCase(createBooking.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -91,6 +95,8 @@ const bookingsSlice = createSlice({
         state.loading = false;
         state.error = action.payload as string;
       })
+
+      
       .addCase(deleteBooking.pending, (state) => {
         state.loading = true;
         state.error = null;
