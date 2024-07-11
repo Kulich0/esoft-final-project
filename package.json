@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.2.6",
+    "express-validator": "^7.1.0"
+  }
+}
