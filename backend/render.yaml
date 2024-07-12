@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: my-service
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npx ts-node server/index.ts
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.1
