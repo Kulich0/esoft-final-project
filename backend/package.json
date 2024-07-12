@@ -21,7 +21,7 @@
     "nodemon": "^3.1.4",
     "ts": "^0.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.2"
   },
   "name": "backend",
   "version": "1.0.0",

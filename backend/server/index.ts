@@ -45,10 +45,10 @@ import userAbonementRoutes from './routes/userAbonementRoutes';
 
 const app = express();
 const port = Number(process.env.PORT);
-const clientURL = process.env.CLIENT_URL;
+
 
 const corsOptions = {
-    origin: clientURL, 
+    origin: process.env.CLIENT_URL, 
     credentials: true, 
 };
 
@@ -94,5 +94,5 @@ app.use('/api', userAbonementRouter);
 
 
 app.listen(port, '0.0.0.0' , () => {
-    console.log(`SERVER STARTED ON PORT ${clientURL}`);
+    console.log(`SERVER STARTED ON PORT 0.0.0.0:${port}`);
 });
