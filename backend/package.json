@@ -21,13 +21,13 @@
     "nodemon": "^3.1.4",
     "ts": "^0.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.3"
   },
   "name": "backend",
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "ts-node server/index.ts",
+    "start": "npx ts-node server/index.ts",
     "dev": "nodemon server/index.ts"
   },
   "keywords": [],
