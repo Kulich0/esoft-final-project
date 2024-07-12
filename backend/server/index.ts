@@ -95,5 +95,5 @@ app.use('/api', userAbonementRouter);
 
 
 app.listen(port, '0.0.0.0' , () => {
-    console.log(`SERVER STARTED ON PORT ${apiURL}`);
+    console.log(`SERVER STARTED ON PORT ${clientURL}`);
 });
