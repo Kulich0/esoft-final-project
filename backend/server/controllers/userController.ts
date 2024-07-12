@@ -20,7 +20,8 @@ class UserController {
             const tokens = await this.userService.registration(req.body);
             res.cookie('refreshToken', tokens.refreshToken, { 
                 maxAge: 30 * 24 * 60 * 60 * 1000, 
-                httpOnly: true 
+                httpOnly: true,
+                secure: true 
             });
             res.status(201).json(tokens);
         } catch (e) {
@@ -32,7 +33,11 @@ class UserController {
     async login(req: Request, res: Response, next: NextFunction) {
         try {
             const tokens = await this.userService.login(req.body);
-            res.cookie('refreshToken', tokens.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+            res.cookie('refreshToken', tokens.refreshToken, { 
+                maxAge: 30 * 24 * 60 * 60 * 1000, 
+                httpOnly: true,
+                secure: true
+             });
             res.status(200).json(tokens);
         } catch (e) {
             next(ApiError.internal('An error occurred during login'));;
@@ -57,7 +62,10 @@ class UserController {
                 return res.status(401).json({ message: 'Токен обновления отсутствует' });
             }
             const tokens = await this.userService.refresh(refreshToken);
-            res.cookie('refreshToken', tokens.refreshToken, { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true });
+            res.cookie('refreshToken', tokens.refreshToken, { 
+                maxAge: 30 * 24 * 60 * 60 * 1000, 
+                httpOnly: true,
+                secure: true });
             res.status(200).json(tokens);
         } catch (e) {
             next(e);
