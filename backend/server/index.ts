@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 require('dotenv').config();
+import net from 'net';
 
 
 import UserController from './controllers/userController';
@@ -55,6 +56,13 @@ const corsOptions = {
 app.use(cors(corsOptions)); 
 app.use(bodyParser.json());
 app.use(cookieParser());
+
+const socket = net.createConnection({host: 'localhost', port, autoSelectFamily: false}, () => {
+    
+});
+socket.on('error', (err) => {
+    console.error('TCP connection error:', err);
+});
 
 const userService = new UserService(UserModel);
 const userController = new UserController(userService); 
