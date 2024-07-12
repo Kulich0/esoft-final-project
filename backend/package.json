@@ -26,9 +26,8 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "start": "npx ts-node server/index.js",
-    "dev": "nodemon server/index.ts",
-    "build": "tsc"
+    "start": "npx ts-node server/index.ts",
+    "dev": "nodemon server/index.ts"
   },
   "keywords": [],
   "author": "",
