@@ -19,7 +19,7 @@
     "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.14.10",
     "nodemon": "^3.1.4",
-    "ts": "^0.2.2",
+    "ts": "^0.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3"
   },
