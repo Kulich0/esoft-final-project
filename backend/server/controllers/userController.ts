@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import UserService from '../services/userService';
 import { validationResult } from 'express-validator';
-const ApiError = require('../api-error/api-error');
+
 
 class UserController {
     private userService: UserService;
@@ -40,7 +40,6 @@ class UserController {
              });
             res.status(200).json(tokens);
         } catch (e) {
-            next(ApiError.internal('An error occurred during login'));;
         }
     }
 

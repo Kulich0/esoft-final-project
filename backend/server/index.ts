@@ -57,12 +57,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-const socket = net.createConnection({host: 'localhost', port, autoSelectFamily: false}, () => {
-    
-});
-socket.on('error', (err) => {
-    console.error('TCP connection error:', err);
-});
+
 
 const userService = new UserService(UserModel);
 const userController = new UserController(userService); 
