@@ -44,9 +44,8 @@ import userAbonementRoutes from './routes/userAbonementRoutes';
 
 
 const app = express();
-const port = Number(process.env.PORT) || 5000;
-const clientURL = process.env.CLIENT_URL || 'http://localhost:5173';
-const apiURL = process.env.API_URL || `http://localhost:${port}`;
+const port = Number(process.env.PORT);
+const clientURL = process.env.CLIENT_URL;
 
 const corsOptions = {
     origin: clientURL, 
