@@ -96,6 +96,6 @@ app.use('/api', abonementRouter);
 app.use('/api', userAbonementRouter);
 
 
-app.listen(port, '0.0.0.0' , () => {
-    console.log(`SERVER STARTED ON PORT 0.0.0.0:${port}`);
+app.listen(port, () => {
+    console.log(`SERVER STARTED ON PORT http://localhost:${port}`);
 });
