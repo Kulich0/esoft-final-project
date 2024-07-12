@@ -17,11 +17,11 @@
     "@types/express": "^4.17.21",
     "@types/express-validator": "^3.0.0",
     "@types/jsonwebtoken": "^9.0.6",
-    "@types/node": "^20.14.9",
+    "@types/node": "^20.14.10",
     "nodemon": "^3.1.4",
-    "ts": "^0.0.0",
+    "ts": "^0.2.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.3"
   },
   "name": "backend",
   "version": "1.0.0",
