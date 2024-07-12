@@ -13,10 +13,10 @@ class UserAbonementModel {
     }
     async getById(userId: number) {
         try {
-            const user_abon = await pool('user_abonement').where({ user_id: userId }).first();
-            return user_abon;
+            const user_abons = await pool('user_abonement').where({ user_id: userId });
+            return user_abons;
         } catch (error) {
-            console.error(`Не удалось получить абонемент пользователя с ID ${userId}`, error);
+            console.error(`Не удалось получить абонементы пользователя с ID ${userId}`, error);
             throw error;
         }
     }

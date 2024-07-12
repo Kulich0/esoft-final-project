@@ -56,6 +56,25 @@ class ClassBookingsModel {
             throw error;
         }
     }
+
+    async getClassBookingsById(userId: number) {
+        try {
+            const classBookings = await pool('classBookings')
+                .join('classSchedules', 'classBookings.class_schedule_id', 'classSchedules.id')
+                .select(
+                    'classBookings.id',
+                    'classSchedules.classes',
+                    'classSchedules.start_time',
+                    'classSchedules.end_time',
+                    'classSchedules.day'
+                )
+                .where('classBookings.user_id', userId);
+            return classBookings;
+        } catch (error) {
+            console.error(`Не удалось получить записи на занятия для пользователя с ID ${userId}`, error);
+            throw error;
+        }
+    }
 }
 
 export default new ClassBookingsModel();

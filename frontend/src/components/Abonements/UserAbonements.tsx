@@ -12,13 +12,19 @@ const UserAbonements: React.FC = () => {
 
   React.useEffect(() => {
     if (userId) {
+      console.log('Fetching user abons for userId:', userId);
       dispatch(fetchUserAbonsById(Number(userId)))
+        .then((response) => {
+          console.log('Fetch user abons response:', response);
+        })
         .catch((err) => console.error('Fetch user abons error:', err)); 
     }
   }, [dispatch, userId]);
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>; // Добавление .message для вывода сообщения об ошибке
+  if (error) return <div>Error: {error}</div>;
+
+  console.log('User abons:', userAbons);
 
   return (
     <Box sx={{ padding: 3, marginLeft: 5 }}>
@@ -44,7 +50,6 @@ const UserAbonements: React.FC = () => {
                   {abon.abonement_title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                  <div>Абонемент ID: {abon.abonement_id}</div>
                   <div>Количество занятий: {abon.abonement_sessions}</div>
                 </Typography>
               </CardContent>

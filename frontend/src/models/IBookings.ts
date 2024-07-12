@@ -3,5 +3,9 @@ export interface IBookings {
     user_id: number;
     class_schedule_id: number;
     booking_time: string;
-    status: 'pending' | 'confirmed' | 'cancelled'
+    status: 'pending' | 'confirmed' | 'cancelled',
+    classes?: string;
+    start_time?: string;
+    end_time?: string;
+    day?: string;
 }

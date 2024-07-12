@@ -57,7 +57,14 @@ interface AsyncThunkConfig {
   const userAbonSlice = createSlice({
     name: 'userAbons',
     initialState,
-    reducers: {},
+    reducers: {
+      updateAbonSessions: (state, action: PayloadAction<{ abonement_id: number, user_id: number }>) => {
+        const abon = state.userAbons.find((a) => a.abonement_id === action.payload.abonement_id && a.user_id === action.payload.user_id);
+        if (abon) {
+          abon.abonement_sessions -= 1;
+        }
+      },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchUserAbonsById.pending, (state) => {
@@ -90,6 +97,6 @@ interface AsyncThunkConfig {
             });
     },
 });
-
+export const { updateAbonSessions } = userAbonSlice.actions;
 export default userAbonSlice.reducer;
   

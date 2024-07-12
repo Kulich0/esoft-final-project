@@ -15,8 +15,6 @@ export default function CardAccount() {
   const { user, loading, error } = useSelector((state: RootState) => state.user);
 
   const [successMessage, setSuccessMessage] = React.useState('');
-
-
   const [editing, setEditing] = React.useState(false);
   const [tempUser, setTempUser] = React.useState({
     id: '',
@@ -61,7 +59,18 @@ export default function CardAccount() {
         console.error(err);
       });
   };
-  
+
+  const handleCancel = () => {
+    if (user) {
+      setTempUser({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        password: user.password,
+      });
+    }
+    setEditing(false);
+  };
 
   const handleEdit = () => {
     setEditing(true);
@@ -111,16 +120,29 @@ export default function CardAccount() {
               fullWidth
               sx={{ mb: 2 }}
             />
-            <Button
-              variant="contained"
-              sx={{ 
-                bgcolor: '#9370DB',
-                '&:hover': { backgroundColor: '#7A5DC7' },
-              }}
-              onClick={handleSave}
-            >
-              Сохранить
-            </Button>
+            <Box display="flex" justifyContent="space-between">
+              <Button
+                variant="contained"
+                sx={{ 
+                  bgcolor: '#9370DB',
+                  '&:hover': { backgroundColor: '#7A5DC7' },
+                }}
+                onClick={handleSave}
+              >
+                Сохранить
+              </Button>
+              <Button
+                variant="outlined"
+                sx={{ 
+                  color: '#9370DB',
+                  borderColor: '#9370DB',
+                  '&:hover': { backgroundColor: '#f0f0f0', borderColor: '#9370DB' },
+                }}
+                onClick={handleCancel}
+              >
+                Отмена
+              </Button>
+            </Box>
           </>
         ) : (
           <>

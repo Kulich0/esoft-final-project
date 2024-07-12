@@ -70,6 +70,24 @@ class ClassBookingsController {
             next(e);
         }
     }
+
+    async getClassesBookingsById(req: Request, res: Response, next: NextFunction) {
+        try {
+            const userId = parseInt(req.params.userId, 10);
+            if (isNaN(userId)) {
+                return res.status(400).json({ message: 'Неверный ID пользователя' });
+            }
+            const classBookings = await this.classBookingsServices.getClassesBookingsById(userId);
+            if (!classBookings || classBookings.length === 0) {
+                res.status(404).json({ message: 'Записи на занятия не найдены' });
+            } else {
+                res.status(200).json(classBookings);
+            }
+        } catch (e) {
+            next(e);
+        }
+    }
+
 }
 
 export default ClassBookingsController;

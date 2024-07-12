@@ -7,7 +7,7 @@ interface IUserAbon {
     abonement_id: number;
     abonement_title: string;
     abonement_sessions: number;
-  }
+}
 
 class UserAbonementController {
     private userAbonementService: UserAbonementService;
@@ -33,7 +33,7 @@ class UserAbonementController {
                 res.status(400).json({ message: 'Invalid user ID' });
                 return;
             }
-            const userAbonements: IUserAbon[] = [];
+            const userAbonements = await this.userAbonementService.getUserAbonementsById(userId);
             res.json(userAbonements);
         } catch (error) {
             next(error);

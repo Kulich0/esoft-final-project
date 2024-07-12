@@ -28,6 +28,10 @@ class ClassBookingsService {
     async createClassBookings(classBookingData: any) {
         return this.classBookingsModel.create(classBookingData);
     }
+
+    async getClassesBookingsById(userId: number) {
+        return this.classBookingsModel.getClassBookingsById(userId);
+    }
 }
 
 export default ClassBookingsService;

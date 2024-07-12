@@ -1,4 +1,4 @@
-import React  from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../reducer/store';
 import { fetchUserBookings, deleteBooking } from '../../reducer/slices/bookingSlice';
@@ -46,11 +46,10 @@ const MyBookings = () => {
           bookings.map((booking) => (
             <Grid item xs={12} sm={6} md={4} key={booking.id}>
               <Paper sx={{ padding: 2 }}>
-                <Typography variant="body1"><strong>ID записи:</strong> {booking.id}</Typography>
-                <Typography variant="body2"><strong>ID пользователя:</strong> {booking.user_id}</Typography>
-                <Typography variant="body2"><strong>ID расписания занятия:</strong> {booking.class_schedule_id}</Typography>
-                <Typography variant="body2"><strong>Время бронирования:</strong> {booking.booking_time}</Typography>
-                <Typography variant="body2"><strong>Статус:</strong> {booking.status}</Typography>
+                <Typography variant="body2"><strong>Название класса:</strong> {booking.classes}</Typography>
+                <Typography variant="body2"><strong>Начало:</strong> {booking.start_time}</Typography>
+                <Typography variant="body2"><strong>Конец:</strong> {booking.end_time}</Typography>
+                <Typography variant="body2"><strong>День:</strong> {booking.day}</Typography>
                 <Button
                   variant="contained"
                   sx={{

@@ -11,8 +11,6 @@ import yogainhammocks from '../../assets/images/yogainhammocks.jpg';
 import yogamedium from '../../assets/images/yogamedium.jpg';
 
 
-
-
 const StyledCardMedia = styled(CardMedia)({
   height: 400,
   width: '100%',
@@ -70,7 +68,7 @@ const CardClasses: React.FC = () => {
 
   return (
     <>
-      <Grid container spacing={1} sx={{ paddingLeft: 1, paddingRight: 1 }}>
+      <Grid container spacing={1} sx={{ paddingLeft: 1, paddingRight: 1, marginTop: '65px' }}>
         {classes.map((card, index) => (
           <Grid item key={index} xs={12} sm={6} md={4} sx={{ padding: '5px' }}>
             <StyledCard>
