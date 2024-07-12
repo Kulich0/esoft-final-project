@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+require('dotenv').config();
 
 
 import UserController from './controllers/userController';
@@ -41,11 +42,14 @@ import UserAbonementService from './services/userAbonementService';
 import UserAbonModel from './models/userAbonModel';
 import userAbonementRoutes from './routes/userAbonementRoutes';
 
-const port = 5000;
+
 const app = express();
+const port = Number(process.env.PORT) || 5000;
+const clientURL = process.env.CLIENT_URL || 'http://localhost:5173';
+const apiURL = process.env.API_URL || `http://localhost:${port}`;
 
 const corsOptions = {
-    origin: 'http://localhost:5173', 
+    origin: clientURL, 
     credentials: true, 
 };
 
@@ -91,5 +95,5 @@ app.use('/api', userAbonementRouter);
 
 
 app.listen(port, '0.0.0.0' , () => {
-    console.log(`SERVER STARTED ON PORT http://localhost:${port}`);
+    console.log(`SERVER STARTED ON PORT ${apiURL}`);
 });

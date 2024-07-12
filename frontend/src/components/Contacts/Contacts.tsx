@@ -3,7 +3,12 @@ import { Typography, Box } from '@mui/material';
 
 const Contacts: React.FC = () => {
   return (
-    <Box sx={{ padding: 4, backgroundColor: '#f5f5f5', borderRadius: 2, maxWidth: 800, margin: '0 auto', textAlign: 'left' }}>
+    <Box sx={{ 
+      padding: 4, 
+      backgroundColor: '#fff', 
+      maxWidth: '100%', 
+      margin: '0 auto', 
+      textAlign: 'left' }}>
       <Typography variant="h4" component="h2" gutterBottom>
         Контакты
       </Typography>

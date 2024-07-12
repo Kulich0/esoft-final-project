@@ -8,7 +8,7 @@ import Contacts from '../Contacts/Contacts';
 const StyledPaper = styled(Paper)(({ theme }) => ({
     position: 'relative',
     color: theme.palette.common.white,
-    marginBottom: theme.spacing(4),
+    marginBottom: theme.spacing(0),
     marginTop: theme.spacing(6),
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
@@ -66,8 +66,8 @@ const Body: React.FC = () => {
                         </Button>
                     </TextOverlay>
                 </FullOverlay>
-            </StyledPaper>
-            <AboutYogacenter/>
+                    </StyledPaper>
+                    <AboutYogacenter/>
             <Contacts/>
         </>
     );
