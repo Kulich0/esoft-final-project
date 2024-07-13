@@ -7,11 +7,11 @@ exports.seed = async function(knex: Knex) {
 
     await knex('roles').insert([
         {
-            id: 1,
+            id: 2,
             name: 'admin'
         },
         {
-            id: 2,
+            id: 3,
             name: 'instructor'
         }
     ]);
