@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 require('dotenv').config();
-import net from 'net';
+
 
 
 import UserController from './controllers/userController';
@@ -43,9 +43,9 @@ import UserAbonementService from './services/userAbonementService';
 import UserAbonModel from './models/userAbonModel';
 import userAbonementRoutes from './routes/userAbonementRoutes';
 
-
-const app = express();
 const port = Number(process.env.PORT);
+const app = express();
+
 
 
 const corsOptions = {
@@ -96,6 +96,6 @@ app.use('/api', abonementRouter);
 app.use('/api', userAbonementRouter);
 
 
-app.listen(port, () => {
-    console.log(`SERVER STARTED ON PORT http://localhost:${port}`);
+app.listen(port, '0.0.0.0', () => {
+    console.log(`SERVER STARTED ON PORT 0.0.0.0:${port}`);
 });

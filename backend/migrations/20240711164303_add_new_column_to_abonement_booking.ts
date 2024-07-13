@@ -18,8 +18,8 @@ export async function up(knex: Knex): Promise<void> {
 
   
   await knex.schema.table('user_abonement', table => {
-    table.string('abonement_title').notNullable().alter();
-    table.integer('abonement_sessions').notNullable().alter();
+    table.string('abonement_title').alter();
+    table.integer('abonement_sessions').alter();
   });
 }
 
