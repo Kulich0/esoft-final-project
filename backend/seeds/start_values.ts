@@ -19,7 +19,7 @@ exports.seed = async function(knex: Knex) {
             persname: 'StepaAdmin',
             email: 'stepan.09myromec@gmail.com',
             password: '$2b$10$Ttmx1V.2dpBcaGU5e6AE3u78mNCnS8UIVN9ae1ZfTrnhtweVdmjEC',
-            role: 'System Administrator',
+            bio: 'System Administrator',
             role_id: 1,
             created_at: '2024-07-05 00:24:16.554507+05',
             updated_at: '2024-07-05 00:24:16.554507+05'
@@ -28,7 +28,7 @@ exports.seed = async function(knex: Knex) {
             persname: 'Instructor-N',
             email: 'nadv@gmail.com',
             password: '$2b$10$PSIb9kx8beoZRuhsD68X/eEkshRkaOgT45qDok4fyvhfGlNh93Sgq',
-            role: null,
+            bio: null,
             role_id: 2,
             created_at: '2024-07-05 00:29:50.464296+05',
             updated_at: '2024-07-05 00:29:50.464296+05'
