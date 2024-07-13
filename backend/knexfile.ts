@@ -5,11 +5,11 @@ const config: {[key: string]:  Knex.Config} = {
   development: {
     client: 'pg',
     connection: {
-      host: process.env.DB_HOST || 'localhost',
-      port: process.env.DB_PORT ? parseInt(process.env.DB_PORT): 5432,
-      user: process.env.DB_USER || 'postgres',
-      password: process.env.DB_PASSWORD || 'postgres',
-      database: process.env.DB_DATABASE || 'yogacenter'
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT ? parseInt(process.env.DB_PORT): undefined,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE
     },
     pool: {
       min: process.env.DB_MIN ? parseInt(process.env.DB_MIN): 2,
@@ -22,5 +22,7 @@ const config: {[key: string]:  Knex.Config} = {
       tableName: 'migrations'
     }
   }
-}
+};
+
+console.log("Database configuration:", config.development);
 module.exports = config;
