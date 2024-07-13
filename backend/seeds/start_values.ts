@@ -1,6 +1,7 @@
 import { Knex } from "knex";
 
 
+
 exports.seed = async function(knex: Knex) {
     await knex('roles').del();
 
@@ -199,42 +200,42 @@ exports.seed = async function(knex: Knex) {
     await knex('abonement').insert([
         {
             id: 1,
-            name: 'Йога в гамаках для начинающих',
+            title: 'Йога в гамаках для начинающих',
             sessions_4: 1800,
             sessions_8: 3200,
             sessions_12: 3600
         },
         {
             id: 2,
-            name: 'Йога в гамаках средний уровень',
+            title: 'Йога в гамаках средний уровень',
             sessions_4: 1800,
             sessions_8: 3200,
             sessions_12: 3600
         },
         {
             id: 3,
-            name: 'Хатха йога',
+            title: 'Хатха йога',
             sessions_4: 1800,
             sessions_8: 3200,
             sessions_12: 3600
         },
         {
             id: 4,
-            name: 'Йога нидра',
+            title: 'Йога нидра',
             sessions_4: 1800,
             sessions_8: 3200,
             sessions_12: 3600
         },
         {
             id: 5,
-            name: 'Индивидуальные тренинг',
+            title: 'Индивидуальные тренинг',
             sessions_4: 1200,
             sessions_8: null,
             sessions_12: null
         },
         {
             id: 6,
-            name: 'Группа здоровья',
+            title: 'Группа здоровья',
             sessions_4: 1800,
             sessions_8: 3200,
             sessions_12: 3600
