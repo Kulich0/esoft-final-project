@@ -16,8 +16,10 @@ exports.seed = async function(knex: Knex) {
         }
     ]);
 
-    
+    await knex('personal').del();
+
     await knex('personal').insert([
+        
         {
             persname: 'StepaAdmin',
             email: 'stepan.09myromec@gmail.com',
@@ -38,6 +40,7 @@ exports.seed = async function(knex: Knex) {
         }
     ]);
 
+    await knex('classes').del();
     
     await knex('classes').insert([
         {
