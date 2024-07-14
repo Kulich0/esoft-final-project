@@ -3,24 +3,25 @@ import { Knex } from "knex";
 
 
 exports.seed = async function(knex: Knex) {
+    await knex('personal').del();
     await knex('roles').del();
 
     await knex('roles').insert([
         {
-            id: 2,
+            id: 1,
             name: 'admin'
         },
         {
-            id: 3,
+            id: 2,
             name: 'instructor'
         }
     ]);
 
-    await knex('personal').del();
 
     await knex('personal').insert([
         
-        {
+        {   
+            id: 2,
             persname: 'StepaAdmin',
             email: 'stepan.09myromec@gmail.com',
             password: '$2b$10$Ttmx1V.2dpBcaGU5e6AE3u78mNCnS8UIVN9ae1ZfTrnhtweVdmjEC',
@@ -29,7 +30,8 @@ exports.seed = async function(knex: Knex) {
             created_at: '2024-07-05 00:24:16.554507+05',
             updated_at: '2024-07-05 00:24:16.554507+05'
         },
-        {
+        {   
+            id: 3,
             persname: 'Instructor-N',
             email: 'nadv@gmail.com',
             password: '$2b$10$PSIb9kx8beoZRuhsD68X/eEkshRkaOgT45qDok4fyvhfGlNh93Sgq',
@@ -40,8 +42,7 @@ exports.seed = async function(knex: Knex) {
         }
     ]);
 
-    await knex('classes').del();
-    
+
     await knex('classes').insert([
         {
             id: 2,
