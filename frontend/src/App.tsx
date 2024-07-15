@@ -6,7 +6,7 @@ import { RootState, AppDispatch } from './reducer/store';
 import { setUser, setAccessToken } from './reducer/slices/authSlice';
 
 const App: React.FC = () => {
-  const dispatch: AppDispatch = useDispatch();
+/*   const dispatch: AppDispatch = useDispatch();
   const userId = useSelector((state: RootState) => state.user.user?.id);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const App: React.FC = () => {
       dispatch(fetchUserById(userId));
     }
   }, [dispatch, userId]);
-
+ */
   return <AppRouter />;
 };
 
