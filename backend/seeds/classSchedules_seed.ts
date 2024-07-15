@@ -1,6 +1,7 @@
 import { Knex } from "knex";
 
 exports.seed = async function(knex: Knex) {
+    console.log('Seeding classSchedules table...');
     await knex('classSchedules').del();
 
     await knex('classSchedules').insert([
@@ -101,4 +102,5 @@ exports.seed = async function(knex: Knex) {
             day: 'Суббота'
         }
     ]);
+    console.log('ClassSchedules table seeded.');
 };

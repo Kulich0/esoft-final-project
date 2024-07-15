@@ -1,6 +1,7 @@
 import { Knex } from "knex";
 
 exports.seed = async function(knex: Knex) {
+    console.log('Seeding classes table...');
     await knex('classes').del();
 
     await knex('classes').insert([
@@ -59,4 +60,5 @@ exports.seed = async function(knex: Knex) {
             picture_classes: null
         }
     ]);
+    console.log('Classes table seeded.');
 };

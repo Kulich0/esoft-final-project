@@ -51,6 +51,7 @@ export default function CardAccount() {
       .then(() => {
         setEditing(false);
         setSuccessMessage('Изменения успешно сохранены');
+        dispatch(fetchUserById(tempUser.id))
         setTimeout(() => {
           setSuccessMessage('');
         }, 3000); 
