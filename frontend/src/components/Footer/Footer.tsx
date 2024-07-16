@@ -61,9 +61,6 @@ const Footer: React.FC = () => {
           </Grid>
         </Grid>
         <Box textAlign="center" mt={2}>
-          <Typography variant="body2">
-            &copy; {new Date().getFullYear()} Гармония движения. Все права защищены.
-          </Typography>
         </Box>
       </Container>
     </Box>
