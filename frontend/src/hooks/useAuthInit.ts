@@ -6,7 +6,7 @@ import { RootState, AppDispatch } from "../reducer/store";
 
 const useAuthInit = () => {
     const dispatch: AppDispatch = useDispatch();
-    const userId = useSelector((state: RootState) => state.user.user?.id);
+    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -17,10 +17,11 @@ const useAuthInit = () => {
             dispatch(setUser(JSON.parse(user)));
         }
 
-        if (token && userId) {
+        if (token && !isAuthenticated) {
+            const userId = JSON.parse(user).id;
             dispatch(fetchUserById(userId));
         }
-    }, [dispatch, userId])
+    }, [dispatch, isAuthenticated])
 };
 
 export default useAuthInit;

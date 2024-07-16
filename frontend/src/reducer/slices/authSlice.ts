@@ -58,8 +58,9 @@ export const logout = createAsyncThunk(
         try {
             await AuthService.logout();
             localStorage.removeItem('token');
-            localStorage.removeItem('user'); 
-            return {};
+            localStorage.removeItem('user');
+            localStorage.removeItem('refreshToken');
+            return {isAuthenticated: false};
         } catch (error) {
             const axiosError = error as AxiosError;
             return thunkAPI.rejectWithValue(axiosError.response?.data as string);
