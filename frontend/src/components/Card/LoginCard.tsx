@@ -1,20 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Button, TextField, Card, CardContent, Typography, Link, CircularProgress } from '@mui/material';
+import * as React from 'react';
+import { Box, Button, TextField, Card, CardContent, Typography, Link, CircularProgress, InputAdornment, IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../reducer/store';
 import { login, registration } from '../../reducer/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+
 
 const LoginCard: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [isRegistering, setIsRegistering] = useState(false);
+
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [name, setName] = React.useState('');
+  const [isRegistering, setIsRegistering] = React.useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const { user, loading, error } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (user) {
       navigate(`/users/${user.id}`);
     }
@@ -31,6 +35,15 @@ const LoginCard: React.FC = () => {
   const handleRegisterClick = () => {
     setIsRegistering(!isRegistering);
   };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
+
 
   return (
     <Card sx={{ 
@@ -77,12 +90,23 @@ const LoginCard: React.FC = () => {
             margin="dense"
             id="password"
             label="Пароль"
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             fullWidth
             variant="outlined"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             sx={{ marginBottom: 2 }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position='end'>
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMousDown={handleMouseDownPassword}>
+                      {showPassword ? <Visibility/> : <VisibilityOff/>}
+                  </IconButton>
+                </InputAdornment>
+              )
+            }}
           />
           {loading ? (
             <CircularProgress sx={{ marginTop: 2 }} />

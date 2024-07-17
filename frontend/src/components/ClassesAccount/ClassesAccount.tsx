@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../reducer/store';
 import { fetchSchedules } from '../../reducer/slices/scheduleSlice';
@@ -10,7 +10,7 @@ const ClassesAccount = () => {
   const dispatch: AppDispatch = useDispatch();
   const schedules = useSelector((state: RootState) => state.schedules.schedules as ISchedules[]);
   const userId = useSelector((state: RootState) => state.auth.user?.id);
-  const [selectedClass, setSelectedClass] = useState<string>('');
+  const [selectedClass, setSelectedClass] = React.useState<string>('');
 
   React.useEffect(() => {
     dispatch(fetchSchedules());

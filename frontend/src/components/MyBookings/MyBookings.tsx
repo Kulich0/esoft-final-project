@@ -4,6 +4,7 @@ import { RootState, AppDispatch } from '../../reducer/store';
 import { fetchUserBookings, deleteBooking } from '../../reducer/slices/bookingSlice';
 import { Box, Typography, Grid, Paper, Button } from '@mui/material';
 
+
 const MyBookings = () => {
   const dispatch: AppDispatch = useDispatch();
   const userId = useSelector((state: RootState) => state.auth.user?.id);
@@ -20,7 +21,8 @@ const MyBookings = () => {
   const handleDeleteBooking = (bookingId: string) => {
     dispatch(deleteBooking(bookingId))
       .then(() => {
-        alert(`Запись с ID ${bookingId} успешно отменена`);
+        dispatch(fetchUserBookings(userId!.toString()))
+        alert(`Запись успешно отменена`);
       })
       .catch((error) => {
         console.error('Ошибка отмены записи:', error);
@@ -29,11 +31,11 @@ const MyBookings = () => {
   };
 
   if (loading) {
-    return <Typography>Загрузка данных...</Typography>;
+    return <Typography>Loading...</Typography>;
   }
 
   if (error) {
-    return <Typography>Ошибка: {error}</Typography>;
+    return <Typography>Error:{error}</Typography>;
   }
 
   return (
@@ -46,9 +48,9 @@ const MyBookings = () => {
           bookings.map((booking) => (
             <Grid item xs={12} sm={6} md={4} key={booking.id}>
               <Paper sx={{ padding: 2 }}>
-                <Typography variant="body2"><strong>Название класса:</strong> {booking.classes}</Typography>
-                <Typography variant="body2"><strong>Начало:</strong> {booking.start_time}</Typography>
-                <Typography variant="body2"><strong>Конец:</strong> {booking.end_time}</Typography>
+                <Typography variant="body2"><strong>Занятие:</strong> {booking.classes}</Typography>
+                <Typography variant="body2"><strong>Начало:</strong> {booking.start_time ? booking.start_time.slice(0, -3) : ''}</Typography>
+                <Typography variant="body2"><strong>Конец:</strong> {booking.end_time ? booking.end_time.slice(0, -3) : ''}</Typography>
                 <Typography variant="body2"><strong>День:</strong> {booking.day}</Typography>
                 <Button
                   variant="contained"

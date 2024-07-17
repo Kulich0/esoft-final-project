@@ -9,6 +9,7 @@ const AboutYogacenter: React.FC = () => {
       maxWidth: '100%', 
       margin: '0 auto', 
       textAlign: 'left',
+      
      }}>
       <Typography variant="h4" component="h2" gutterBottom>
         Почему именно Студия йоги "Гармония движения"?

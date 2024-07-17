@@ -1,25 +1,21 @@
 import React from 'react';
-import Box from '@mui/material/Box';
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
+import {Box, SwipeableDrawer, List, ListItem, ListItemButton, 
+  ListItemText, Divider, CssBaseline} from '@mui/material';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Divider from '@mui/material/Divider';
+import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import SelfImprovementRoundedIcon from '@mui/icons-material/SelfImprovementRounded';
 import DateRangeRoundedIcon from '@mui/icons-material/DateRangeRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import CssBaseline from '@mui/material/CssBaseline';
+
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../reducer/store';
 import { fetchUserById } from '../../reducer/slices/userSlice';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { logout } from '../../reducer/slices/authSlice';
-import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import LocalMallIcon from '@mui/icons-material/LocalMall';
+
 
 const closedDrawerWidth = 50;
 const openDrawerWidth = 240;

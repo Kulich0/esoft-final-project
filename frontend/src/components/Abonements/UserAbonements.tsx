@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../reducer/store';
 import { fetchUserAbonsById } from '../../reducer/slices/userAbonSlice';
@@ -12,26 +12,23 @@ const UserAbonements: React.FC = () => {
 
   React.useEffect(() => {
     if (userId) {
-      console.log('Fetching user abons for userId:', userId);
       dispatch(fetchUserAbonsById(Number(userId)))
-        .then((response) => {
-          console.log('Fetch user abons response:', response);
-        })
-        .catch((err) => console.error('Fetch user abons error:', err)); 
     }
   }, [dispatch, userId]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
-  console.log('User abons:', userAbons);
 
   return (
     <Box sx={{ padding: 3, marginLeft: 5 }}>
       <Typography variant="h4" component="div" sx={{ marginBottom: 3 }}>
         Мои абонементы
       </Typography>
-      <Grid container spacing={3}>
+      {Array.isArray(userAbons) && userAbons.length === 0 ? (
+        <Typography variant='body1'>У вас нет активных абонементов</Typography>
+      ) : (
+        <Grid container spacing={3}>
         {Array.isArray(userAbons) && userAbons.map((abon: IUserAbon) => (
           <Grid item xs={12} sm={6} md={4} key={abon.abonement_id}>
             <Card sx={{
@@ -57,6 +54,7 @@ const UserAbonements: React.FC = () => {
           </Grid>
         ))}
       </Grid>
+      )}
     </Box>
   );
 };

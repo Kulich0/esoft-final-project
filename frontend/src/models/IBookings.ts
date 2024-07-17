@@ -5,7 +5,7 @@ export interface IBookings {
     booking_time: string;
     status: 'pending' | 'confirmed' | 'cancelled',
     classes?: string;
-    start_time?: string;
-    end_time?: string;
+    start_time?: string | null;
+    end_time?: string | null;
     day?: string;
 }

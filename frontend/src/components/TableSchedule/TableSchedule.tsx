@@ -10,7 +10,6 @@ const ScheduleTable: React.FC = () => {
   const schedules = useSelector((state: RootState) => state.schedules.schedules);
   
 
-
   React.useEffect(() => {
     dispatch(fetchSchedules());
   }, [dispatch]);
@@ -56,7 +55,6 @@ const ScheduleTable: React.FC = () => {
                       justifyContent: 'center',
                       alignItems: 'center',
                       marginLeft: '30px',
-                      cursor: 'pointer'
                     }}
                   >
                     <Typography>{schedule.start_time.slice(0, -3)} - {schedule.end_time.slice(0, -3)}</Typography>
