@@ -21,12 +21,18 @@ const UserAbonements: React.FC = () => {
 
 
   return (
-    <Box sx={{ padding: 3, marginLeft: 5 }}>
-      <Typography variant="h4" component="div" sx={{ marginBottom: 3 }}>
+    <Box sx={{ padding: 2, marginLeft: '50px' }}>
+      <Typography variant="h4" gutterBottom >
         Мои абонементы
       </Typography>
       {Array.isArray(userAbons) && userAbons.length === 0 ? (
-        <Typography variant='body1'>У вас нет активных абонементов</Typography>
+       <Typography variant='h4' sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh',
+        width: '100%'
+      }}>У вас нет активных абонементов</Typography>
       ) : (
         <Grid container spacing={3}>
         {Array.isArray(userAbons) && userAbons.map((abon: IUserAbon) => (

@@ -10,6 +10,7 @@ import SelfImprovementRoundedIcon from '@mui/icons-material/SelfImprovementRound
 import DateRangeRoundedIcon from '@mui/icons-material/DateRangeRounded';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '../../reducer/store';
@@ -21,10 +22,12 @@ const closedDrawerWidth = 50;
 const openDrawerWidth = 240;
 
 const SidebarAccount = () => {
+
   const dispatch: AppDispatch = useDispatch();
   const userId = useSelector((state: RootState) => state.auth.user?.id);
   const [isOpen, setIsOpen] = React.useState(false);
-
+  const navigate = useNavigate();
+  
   React.useEffect(() => {
     if (userId) {
       dispatch(fetchUserById(userId));
@@ -37,7 +40,7 @@ const SidebarAccount = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    window.location.href = '/';
+    navigate('/'); 
   };
 
   const DrawerList = (

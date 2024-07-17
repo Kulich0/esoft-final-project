@@ -5,8 +5,8 @@ import SidebarAccount from '../components/SidebarAccount/SidebarAccount';
 const MyAbonsPage: React.FC = () => {
     return (
         <div>
-            <SidebarAccount/>
             <UserAbonements/>
+            <SidebarAccount/>
         </div>
     );
 };

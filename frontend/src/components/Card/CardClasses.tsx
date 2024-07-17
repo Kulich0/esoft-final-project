@@ -6,10 +6,8 @@ import { RootState, AppDispatch } from '../../reducer/store';
 import { IClasses } from '../../models/IClasses';
 
 import hathayoga from '../../assets/images/hathayoga.jpg';
-import thegroupishealthy from '../../assets/images/hathayoga.jpg';
-import yogainhammocks from '../../assets/images/yogainhammocks.jpg';
+import thegroupishealthy from '../../assets/images/thegroupishealthy.jpg';
 import yogamedium from '../../assets/images/yogamedium.jpg';
-
 
 const StyledCardMedia = styled(CardMedia)({
   height: 400,
@@ -44,6 +42,8 @@ const modalStyle = {
   p: 4,
 };
 
+const images = [hathayoga,  yogamedium, thegroupishealthy ];
+
 const CardClasses: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const classes = useSelector((state: RootState) => state.classes.classes as IClasses[]);
@@ -65,16 +65,15 @@ const CardClasses: React.FC = () => {
     setSelectedDescription('');
   };
 
-
   return (
     <>
       <Grid container spacing={1} sx={{ paddingLeft: 1, paddingRight: 1, marginTop: '65px' }}>
         {classes.map((card, index) => (
           <Grid item key={index} xs={12} sm={6} md={4} sx={{ padding: '5px' }}>
             <StyledCard>
-            <StyledCardMedia
+              <StyledCardMedia
                 component="img"
-                image={index % 4 === 0 ? hathayoga : index % 4 === 1 ? thegroupishealthy : index % 4 === 2 ? yogainhammocks : yogamedium}
+                image={images[index % images.length]}
                 alt={card.title}
               />
               <StyledCardContent>

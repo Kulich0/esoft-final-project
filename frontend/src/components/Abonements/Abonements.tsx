@@ -53,6 +53,7 @@ const Abonements = () => {
 
   return (
     <Box sx={{ padding: 3, marginLeft: 5 }}>
+      <Typography variant="h4" gutterBottom>Абонементы</Typography>
       <Grid container spacing={3}>
         {abonements.map((abon) => (
           <Grid item xs={12} sm={6} md={4} key={abon.id}>

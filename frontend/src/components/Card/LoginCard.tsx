@@ -57,6 +57,18 @@ const LoginCard: React.FC = () => {
     event.preventDefault();
   };
 
+  const textFieldStyles = {
+    '& .MuiOutlinedInput-root': {
+      '&.Mui-focused fieldset': {
+        borderColor: '#9370DB',
+      },
+    },
+    '& .MuiInputLabel-root': {
+      '&.Mui-focused': {
+        color: '#9370DB',
+      },
+    },
+  };
 
   return (
     <Card sx={{ 
@@ -84,7 +96,7 @@ const LoginCard: React.FC = () => {
               variant="outlined"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              sx={{ marginBottom: 2 }}
+              sx={{ ...textFieldStyles, marginBottom: 2 }}
             />
           )}
           <TextField
@@ -99,7 +111,7 @@ const LoginCard: React.FC = () => {
             onChange={(e) => setEmail(e.target.value)}
             error={!!errors.email}
             helperText={errors.email}
-            sx={{ marginBottom: 2 }}
+            sx={{...textFieldStyles, marginBottom: 2 }}
           />
           <TextField
             margin="dense"
@@ -112,7 +124,7 @@ const LoginCard: React.FC = () => {
             onChange={(e) => setPassword(e.target.value)}
             error={!!errors.password}
             helperText={errors.password}
-            sx={{ marginBottom: 2 }}
+            sx={{ ...textFieldStyles, marginBottom: 2 }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>

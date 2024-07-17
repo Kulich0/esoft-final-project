@@ -23,19 +23,10 @@ interface AsyncThunkConfig {
     'userAbons/fetchById',
     async (userId, thunkAPI) => {
       try {
-        console.log('Fetching user abons for userId:', userId);
         const response = await UserAbonService.fetchUserAbonsById(userId);
-        console.log('Fetch response data:', response.data);
         return response.data;
       } catch (error) {
         const axiosError = error as AxiosError;
-        console.error('Fetch user abons error:', axiosError.message);
-        if (axiosError.response) {
-          console.error('Error response data:', axiosError.response.data);
-          console.error('Error response status:', axiosError.response.status);
-        } else {
-          console.error('No response received from server.');
-        }
         return thunkAPI.rejectWithValue(axiosError.response?.data as string);
       }
     }
@@ -57,14 +48,7 @@ interface AsyncThunkConfig {
   const userAbonSlice = createSlice({
     name: 'userAbons',
     initialState,
-    reducers: {
-      updateAbonSessions: (state, action: PayloadAction<{ abonement_id: number, user_id: number }>) => {
-        const abon = state.userAbons.find((a) => a.abonement_id === action.payload.abonement_id && a.user_id === action.payload.user_id);
-        if (abon) {
-          abon.abonement_sessions -= 1;
-        }
-      },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchUserAbonsById.pending, (state) => {
@@ -93,10 +77,9 @@ interface AsyncThunkConfig {
             .addCase(createAbons.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
-                console.error('Fetch user abons rejected:', action.payload);
             });
     },
 });
-export const { updateAbonSessions } = userAbonSlice.actions;
+
 export default userAbonSlice.reducer;
   

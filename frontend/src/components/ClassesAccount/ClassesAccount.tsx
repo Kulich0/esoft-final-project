@@ -37,8 +37,7 @@ const ClassesAccount = () => {
         status: 'pending'
       })).then(() => {
         alert(`Вы записаны на занятие: ${scheduleId}`);
-      }).catch((error) => {
-        console.error('Ошибка записи на занятие:', error);
+      }).catch(() => {
         alert('Ошибка записи на занятие');
       });
     }
@@ -53,7 +52,7 @@ const ClassesAccount = () => {
           <Select value={selectedClass} onChange={handleClassChange}>
             {schedules.map((schedule) => (
               <MenuItem key={schedule.id} value={schedule.id}>
-                {schedule.classes} ({schedule.start_time} - {schedule.end_time} на {schedule.day})
+                {schedule.classes} ({schedule.start_time.slice(0,-3)} - {schedule.end_time.slice(0,-3)} на {schedule.day})
               </MenuItem>
             ))}
           </Select>
