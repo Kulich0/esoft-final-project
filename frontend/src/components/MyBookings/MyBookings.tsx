@@ -7,10 +7,15 @@ import { Box, Typography, Grid, Paper, Button } from '@mui/material';
 
 const MyBookings = () => {
   const dispatch: AppDispatch = useDispatch();
-  const userId = useSelector((state: RootState) => state.auth.user?.id);
-  const bookings = useSelector((state: RootState) => state.bookings.bookings);
-  const loading = useSelector((state: RootState) => state.bookings.loading);
-  const error = useSelector((state: RootState) => state.bookings.error);
+  
+  const { userId, bookings, loading, error } = useSelector((state: RootState) => ({
+    userId: state.auth.user?.id,
+    bookings: state.bookings.bookings,
+    loading: state.bookings.loading,
+    error: state.bookings.error,
+  }));
+  const [successMessage, setSuccessMessage] = React.useState('');
+
 
   React.useEffect(() => {
     if (userId) {
@@ -21,12 +26,13 @@ const MyBookings = () => {
   const handleDeleteBooking = (bookingId: string) => {
     dispatch(deleteBooking(bookingId))
       .then(() => {
-        dispatch(fetchUserBookings(userId!.toString()))
-        alert(`Запись успешно отменена`);
+        return dispatch(fetchUserBookings(userId.toString()));
       })
-      .catch((error) => {
-        console.error('Ошибка отмены записи:', error);
-        alert('Ошибка отмены записи');
+      .then(() => {
+        setSuccessMessage('Отмена прошла успешно');
+      })
+      .catch(err => {
+        console.error(err);
       });
   };
 
@@ -42,8 +48,8 @@ const MyBookings = () => {
     <Box sx={{ padding: 2, marginLeft: '50px' }}>
       <Typography variant="h4" gutterBottom>Мои записи на занятия</Typography>
       <Grid container spacing={2}>
-        {bookings.length === 0 ? (
-          <Typography>У вас нет записей на занятия.</Typography>
+        {Array.isArray(bookings) && bookings.length === 0 ? (
+          <Typography variant='body1'>У вас нет записей на занятия</Typography>
         ) : (
           bookings.map((booking) => (
             <Grid item xs={12} sm={6} md={4} key={booking.id}>
@@ -68,6 +74,11 @@ const MyBookings = () => {
           ))
         )}
       </Grid>
+      {successMessage && (
+          <Typography variant="body2" color="success.main" sx={{ mt: 2 }}>
+            {successMessage}
+          </Typography>
+        )}
     </Box>
   );
 };

@@ -5,6 +5,7 @@ import { RootState, AppDispatch } from '../../reducer/store';
 import { login, registration } from '../../reducer/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { validateEmail, validatePassword } from '../../utils/validation';
 
 
 const LoginCard: React.FC = () => {
@@ -12,11 +13,15 @@ const LoginCard: React.FC = () => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [name, setName] = React.useState('');
+  
   const [isRegistering, setIsRegistering] = React.useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const { user, loading, error } = useSelector((state: RootState) => state.auth);
   const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = React.useState(false);
+  const [errors, setErrors] = React.useState<{ email?: string, password?: string}>({});
+
 
   React.useEffect(() => {
     if (user) {
@@ -25,6 +30,14 @@ const LoginCard: React.FC = () => {
   }, [user, navigate]);
 
   const handleLogin = () => {
+    const emailError = validateEmail(email);
+    const passwordError = validatePassword(password);
+
+    if (emailError || passwordError) {
+      setErrors({email: emailError, password: passwordError});
+      return
+    }
+
     if (isRegistering) {
       dispatch(registration({ email, password, name }));
     } else {
@@ -84,6 +97,8 @@ const LoginCard: React.FC = () => {
             variant="outlined"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            error={!!errors.email}
+            helperText={errors.email}
             sx={{ marginBottom: 2 }}
           />
           <TextField
@@ -95,6 +110,8 @@ const LoginCard: React.FC = () => {
             variant="outlined"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            error={!!errors.password}
+            helperText={errors.password}
             sx={{ marginBottom: 2 }}
             InputProps={{
               endAdornment: (
