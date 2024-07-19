@@ -27,9 +27,6 @@ const Footer: React.FC = () => {
             <Typography variant="h6" gutterBottom>
               Навигация
             </Typography>
-            <Link href="/about" color="inherit" variant="body2" display="block" sx = {{textDecoration: 'none'}}>
-              О центре
-            </Link>
             <Link href="/classes" color="inherit" variant="body2" display="block" sx = {{textDecoration: 'none'}}>
               Занятия
             </Link>
@@ -38,9 +35,6 @@ const Footer: React.FC = () => {
             </Link>
             <Link href="/price" color="inherit" variant="body2" display="block" sx = {{textDecoration: 'none'}}>
               Прайс
-            </Link>
-            <Link href="/contacts" color="inherit" variant="body2" display="block" sx = {{textDecoration: 'none'}}>
-              Контакты
             </Link>
           </Grid>
           <Grid item xs={12} sm={4}>

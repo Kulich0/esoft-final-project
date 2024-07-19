@@ -30,7 +30,7 @@ const generateIdempotenceKey = (): string => {
   return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 };
 
-export const createPayment = async (amount: string, description: string): Promise<PaymentResponse> => {
+export const createPayment = async (amount: string, description: string, userId: number): Promise<PaymentResponse> => {
   
   const paymentRequest: PaymentRequest = {
     amount: {
@@ -40,7 +40,7 @@ export const createPayment = async (amount: string, description: string): Promis
     capture: true,
     confirmation: {
       type: 'redirect',
-      return_url: 'https://esoft-final-project.onrender.com/',
+      return_url: `https://esoft-final-project.onrender.com/usabonements/users/${userId}`,
     },
     description,
   };
