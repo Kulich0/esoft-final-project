@@ -5,8 +5,9 @@ import { fetchAbons } from '../../reducer/slices/abonSlice';
 import { createAbons } from '../../reducer/slices/userAbonSlice';
 import { Box, Card, CardContent, Typography, Grid, Button } from '@mui/material';
 import PaymentModal from '../PaymentModal/PaymentModal';
+import axios from 'axios';
 
-const Abonements = () => {
+const Abonements: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const { abonements, loading, error } = useSelector((state: RootState) => state.abons);
   const userId = useSelector((state: RootState) => state.auth.user?.id);
@@ -24,23 +25,32 @@ const Abonements = () => {
     setSelectedAbon(null);
   };
 
-  const handlePayment = (sessions: number) => {
+
+  const handlePayment = async (sessions: number) => {
     if (userId && selectedAbon) {
-      dispatch(
-        createAbons({
-          user_id: userId,
-          abonement_id: selectedAbon.id,
-          abonement_title: selectedAbon.title,
-          abonement_sessions: sessions,
-        })
-      )
-        .then(() => {
-          alert('Оплата прошла успешно!');
-          handleClose();
-        })
-        .catch(() => {
-          alert('Ошибка при оплате. Попробуйте снова.');
+      const amount = sessions === 4 ? 1800 :
+                     sessions === 8 ? 3200 :
+                     sessions === 12 ? 3600 : 0;
+      try {
+        const response = await axios.post('https://api-tc3t.onrender.com/api/create-payment', {
+          amount: amount.toString(),
+          description: `Оплата за ${sessions} занятий абонемента ${selectedAbon.title}`
         });
+        window.location.href = response.data.confirmation_url;
+
+
+        dispatch(
+          createAbons({
+            user_id: userId,
+            abonement_id: selectedAbon.id,
+            abonement_title: selectedAbon.title,
+            abonement_sessions: sessions,
+          })
+        );
+        handleClose();
+      } catch (error) {
+        alert('Ошибка при создании платежа. Попробуйте снова.');
+      }
     }
   };
 
@@ -79,13 +89,13 @@ const Abonements = () => {
                   sx={{ mb: 2 }}
                 >
                   {abon.sessions_4 && (
-                    <div>4 занятия: {abon.sessions_4} руб.</div>
+                    <div>4 занятия: 1800 руб.</div>
                   )}
                   {abon.sessions_8 && (
-                    <div>8 занятий: {abon.sessions_8} руб.</div>
+                    <div>8 занятий: 3200 руб.</div>
                   )}
                   {abon.sessions_12 && (
-                    <div>12 занятий: {abon.sessions_12} руб.</div>
+                    <div>12 занятий: 3600 руб.</div>
                   )}
                   {abon.individual_price && (
                     <div>Индивидуальные занятие: {abon.individual_price} руб.</div>
@@ -120,7 +130,8 @@ const Abonements = () => {
           open={open}
           onClose={handleClose}
           abonTitle={selectedAbon.title}
-          onPayment={handlePayment}
+          abonId={selectedAbon.id}
+          onPayment={(sessions) => handlePayment(sessions)}
         />
       )}
     </Box>
@@ -128,4 +139,3 @@ const Abonements = () => {
 };
 
 export default Abonements;
-

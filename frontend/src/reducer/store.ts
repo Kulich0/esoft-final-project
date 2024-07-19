@@ -7,6 +7,7 @@ import bookingSlice from './slices/bookingSlice';
 import abonsSlice from './slices/abonSlice';
 import userAbonSlice from './slices/userAbonSlice';
 
+
 const store = configureStore({
     reducer: {
         auth: authReducer,
@@ -15,7 +16,8 @@ const store = configureStore({
         user: userSlice,
         bookings: bookingSlice,
         abons:abonsSlice, 
-        userAbons: userAbonSlice
+        userAbons: userAbonSlice,
+        
     }
 })
 

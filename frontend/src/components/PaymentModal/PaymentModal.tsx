@@ -1,18 +1,17 @@
-import React from 'react';
-import { Box, Button, Modal, Typography, FormControl, FormControlLabel, Radio, RadioGroup, TextField } from '@mui/material';
+import * as React from 'react';
+import { Box, Button, Modal, Typography, FormControl, FormControlLabel, Radio, RadioGroup } from '@mui/material';
+
 
 interface PaymentModalProps {
   open: boolean;
   onClose: () => void;
   abonTitle: string;
+  abonId: number;
   onPayment: (sessions: number) => void;
 }
 
 const PaymentModal: React.FC<PaymentModalProps> = ({ open, onClose, abonTitle, onPayment }) => {
   const [selectedSessions, setSelectedSessions] = React.useState<number | null>(null);
-  const [cardNumber ,setCardNumber] = React.useState<string>('');
-  const [expiryDate ,setExpiryDate] = React.useState<string>('');
-  const [cvv ,setCvv] = React.useState<string>('');
 
   const radioStyles = {
     '&.Mui-checked': {
@@ -20,24 +19,10 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ open, onClose, abonTitle, o
     },
   };
 
-  const textFieldStyles = {
-    '& .MuiOutlinedInput-root': {
-      '&.Mui-focused fieldset': {
-        borderColor: '#9370DB',
-      },
-    },
-    '& .MuiInputLabel-root': {
-      '&.Mui-focused': {
-        color: '#9370DB',
-      },
-    },
-  };
-
   const handlePayment = () => {
     if (selectedSessions !== null) {
       onPayment(selectedSessions);
     }
-    onClose();
   };
 
   return (
@@ -62,41 +47,11 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ open, onClose, abonTitle, o
             value={selectedSessions}
             onChange={(e) => setSelectedSessions(Number(e.target.value))}
           >
-            <FormControlLabel value={4} control={<Radio sx={radioStyles}/>} label="4 занятия" />
-            <FormControlLabel value={8} control={<Radio sx={radioStyles}/>} label="8 занятий" />
-            <FormControlLabel value={12} control={<Radio sx={radioStyles}/>} label="12 занятий" />
+            <FormControlLabel value={4} control={<Radio sx={radioStyles}/>} label="4 занятия (1800 руб.)" />
+            <FormControlLabel value={8} control={<Radio sx={radioStyles}/>} label="8 занятий (3200 руб.)" />
+            <FormControlLabel value={12} control={<Radio sx={radioStyles}/>} label="12 занятий (3600 руб.)" />
           </RadioGroup>
         </FormControl>
-        {selectedSessions && (
-          <>
-          <TextField
-          label='Номер карты'
-          placeholder='2222 0000 2200 0000'
-          fullWidth
-          margin='normal'
-          value={cardNumber}
-          onChange={(e) => setCardNumber(e.target.value)}
-          sx={textFieldStyles}
-          />
-
-          <TextField
-          label='Дата окончания (MM/YY)'
-          placeholder='09/33'
-          fullWidth
-          margin='normal'
-          value={expiryDate}
-          onChange={(e) => setExpiryDate(e.target.value)}
-          sx={textFieldStyles}/>
-
-          <TextField
-          label='CVV'
-          fullWidth
-          margin='normal'
-          value={cvv}
-          onChange={(e) => setCvv(e.target.value)}
-          sx={textFieldStyles}/>
-          </>
-        )}
         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'space-between' }}>
           <Button variant="contained" sx={{
                     bgcolor: '#9370DB',
@@ -104,8 +59,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({ open, onClose, abonTitle, o
                     '&:hover': { backgroundColor: '#7A5DC7' }
                   }} 
                   onClick={handlePayment} 
-                  disabled={selectedSessions === null || 
-                  !cardNumber || !expiryDate || !cvv }>
+                  disabled={selectedSessions === null}>
             Оплатить
           </Button>
           <Button variant="outlined" sx={{ 

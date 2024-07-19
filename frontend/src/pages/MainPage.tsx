@@ -4,6 +4,7 @@ import Body from '../components/Body/Body';
 import ErrorBoundary from '../errorboundary';
 import Footer from '../components/Footer/Footer';
 
+
 const MainPage: React.FC = () => {
     return (
         <ErrorBoundary>

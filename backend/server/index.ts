@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 require('dotenv').config();
-
+import paymentRoutes from './routes/paymentRoutes';
 
 
 import UserController from './controllers/userController';
@@ -94,7 +94,7 @@ app.use('/api', classSheduleRouter);
 app.use('/api', personalRouter);
 app.use('/api', abonementRouter);
 app.use('/api', userAbonementRouter);
-
+app.use('/api', paymentRoutes)
 
 app.listen(port, '0.0.0.0', () => {
     console.log(`SERVER STARTED ON PORT 0.0.0.0:${port}`);
