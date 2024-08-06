@@ -1,15 +1,21 @@
 import * as React from 'react';
-import { Card, CardContent, Button, Typography, Box, TextField, Avatar} from '@mui/material';
+import { Card, CardContent, Button, Typography, Box, TextField, Avatar, InputAdornment, IconButton} from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '../../reducer/store';
 import { fetchUserById, updateUser } from '../../reducer/slices/userSlice';
+import { validateEmail, validatePassword } from '../../utils/validation';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export default function CardAccount() {
   const dispatch: AppDispatch = useDispatch();
   const { user, loading, error } = useSelector((state: RootState) => state.user);
 
+  const [showPassword, setShowPassword] = React.useState(false);
   const [successMessage, setSuccessMessage] = React.useState('');
+  
   const [editing, setEditing] = React.useState(false);
+  const [errors, setErrors] = React.useState<{ email?: string, password?: string}>({});
+
   const [tempUser, setTempUser] = React.useState({
     id: '',
     name: '',
@@ -26,6 +32,7 @@ export default function CardAccount() {
   }, [dispatch, userId]);
 
   React.useEffect(() => {
+
     if (user) {
       setTempUser({
         id: user.id,
@@ -36,11 +43,26 @@ export default function CardAccount() {
     }
   }, [user]);
 
+  React.useEffect(() => {
+
+    const emailError = validateEmail(tempUser.email);
+    const passwordError = validatePassword(tempUser.password);
+
+    if (emailError || passwordError) {
+      setErrors({email: emailError, password: passwordError});
+      return
+    }
+    setErrors({});
+  }, [tempUser])
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTempUser({ ...tempUser, [e.target.name]: e.target.value });
   };
 
+
   const handleSave = () => {
+    if(!errors.email && errors.password)
+
     dispatch(updateUser({ id: tempUser.id, updatedUser: tempUser }))
       .then(() => {
         setEditing(false);
@@ -69,6 +91,14 @@ export default function CardAccount() {
 
   const handleEdit = () => {
     setEditing(true);
+  };
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
   };
 
   if (loading) return <div>Loading...</div>;
@@ -103,17 +133,32 @@ export default function CardAccount() {
               value={tempUser.email}
               onChange={handleChange}
               fullWidth
+              error={!!errors.email}
+              helperText={errors.email}
               sx={{ mb: 2 }}
             />
             <TextField
               variant="outlined"
               name="password"
               label="Password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               value={tempUser.password}
               onChange={handleChange}
+              error={!!errors.password}
+              helperText={errors.password}
               fullWidth
               sx={{ mb: 2 }}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position='end'>
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      onMousDown={handleMouseDownPassword}>
+                        {showPassword ? <Visibility/> : <VisibilityOff/>}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
             />
             <Box display="flex" justifyContent="space-between">
               <Button
